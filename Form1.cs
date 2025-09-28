@@ -126,7 +126,7 @@ namespace FuckRedSpider {
         }
 
 
-        
+
         //====================后台监听===============================
 
         private void Listen(object sender, EventArgs e) {
@@ -173,14 +173,14 @@ namespace FuckRedSpider {
                     IntPtr h;
                     try {
                         h = FindWindow(this.R_full_window_class_name, null);
-                        if (h != IntPtr.Zero && lines.Contains( getProcessIdByHandle(h).ToString()) ) {
+                        if (h != IntPtr.Zero && lines.Contains(getProcessIdByHandle(h).ToString())) {
                             log.add("尝试隐藏全屏控屏窗口: " + getHex(h));
                             closeHandle(h);
                             return;
                         }
                         //普通控屏窗口
                         h = FindWindow(this.R_normal_window_class_name, null);
-                        if (h != IntPtr.Zero && lines.Contains(getProcessIdByHandle(h).ToString()) ) {
+                        if (h != IntPtr.Zero && lines.Contains(getProcessIdByHandle(h).ToString())) {
                             log.add("尝试隐藏普通控屏窗口: " + getHex(h));
                             closeHandle(h);
                             return;
@@ -246,7 +246,7 @@ namespace FuckRedSpider {
             full_window_class_TextChanged(sender, e);
         }
 
-        
+
         private void normal_window_class_TextChanged(object sender, EventArgs e) {
             this.R_normal_window_class_name = normal_window_class.Text.Trim();
         }
