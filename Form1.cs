@@ -1,6 +1,8 @@
-﻿using System;
+﻿using KeyboardHookGuard;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -30,6 +32,36 @@ namespace FuckRedSpider {
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
+        //========================setParent================================================
+        [DllImport("user32.dll ", EntryPoint = "SetParent")]
+        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong", CharSet = CharSet.Auto)]
+        public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
+        public static extern long GetWindowLong(IntPtr hWnd, int nIndex);
+
+        public static void _SetParent(IntPtr child,IntPtr hWndNewParent){
+            ShowWindow(child , 0);                 //先将窗体隐藏，防止出现闪烁
+            SetParent(child , hWndNewParent);      //将第三方窗体嵌入父容器      
+            ShowWindow(child , 3);                 //让第三方窗体在容器中最大化显示
+            RemoveWindowTitle(child );             // 去除窗体标题
+        }
+
+
+        /// <summary>
+        /// 去除窗体标题
+        /// </summary>
+        /// <param name="vHandle">窗口句柄</param>
+        public static void RemoveWindowTitle(IntPtr vHandle){
+            long style = GetWindowLong(vHandle, -16);
+            style &= ~0x00C00000;
+            SetWindowLong(vHandle, -16, style);
+
+        }
+
 
         //===========================================================
         private const UInt32 WM_CLOSE = 0x0010;
@@ -44,12 +76,29 @@ namespace FuckRedSpider {
         private string R_normal_window_class_name = default_RNWCN;
 
         private readonly string this_process_name = Process.GetCurrentProcess().ProcessName;
+
+        private readonly GlobalKeyboardHookGuard _keyboardGuard;
+        private bool keyboardGuardRunning = false;
+
+        void KeyboardGuard_GuardStarted(object sender, EventArgs e) {
+            log.add("键盘守护启动");
+            keyboardGuardRunning = true;
+        }
+        void KeyboardGuard_GuardStopped(object sender, EventArgs e) {
+            log.add("键盘守护停止");
+            keyboardGuardRunning = false;
+        }
+        void KeyboardGuard_ErrorOccurred(object sender, ErrorEventArgs e) {
+            log.add("键盘守护出错: " + e.GetException().Message);
+        }
         //======================日志相关==============================
 
         public struct Log {
             TextBox textbox_log;
-            public Log(TextBox textBox) {
+            int ignore_times;
+            public Log(TextBox textBox,int ignore_times=0) {
                 this.textbox_log = textBox;
+                this.ignore_times = 0;
             }
             public void clear() {
                 //清空日志
@@ -57,8 +106,20 @@ namespace FuckRedSpider {
             }
             public void add(string s) {
                 //添加日志
+                if (ignore_times > 0) {
+                    ignore_times--;
+                    return;
+                } else if (ignore_times < 0) {
+                    return;
+                }
                 textbox_log.Text += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + s;
                 textbox_log.Text += Environment.NewLine;
+            }
+            public void ignore(int i_t = 1) {
+                ignore_times = i_t;
+            }
+            public void unignore() {
+                ignore_times = 0;
             }
         }
         private Log log;
@@ -69,6 +130,12 @@ namespace FuckRedSpider {
             this.bindTip();
             log = new Log(this.textbox_log);
             log.add("程序启动");
+            _keyboardGuard = new GlobalKeyboardHookGuard();
+
+            // 订阅事件
+            _keyboardGuard.GuardStarted += KeyboardGuard_GuardStarted;
+            _keyboardGuard.GuardStopped += KeyboardGuard_GuardStopped;
+            _keyboardGuard.ErrorOccurred += KeyboardGuard_ErrorOccurred;
         }
 
         private void bindTip() {
@@ -125,7 +192,15 @@ namespace FuckRedSpider {
             return pid;
         }
 
-
+        //====================校验父进程============================
+        bool validProcess(IntPtr w) {
+            int pid = getProcessIdByHandle(w);
+            Process p = Process.GetProcessById(pid);
+            if (p.ProcessName == this_process_name) {
+                return false;
+            }
+            return true;
+        }
 
         //====================后台监听===============================
 
@@ -173,14 +248,14 @@ namespace FuckRedSpider {
                     IntPtr h;
                     try {
                         h = FindWindow(this.R_full_window_class_name, null);
-                        if (h != IntPtr.Zero && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                        if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
                             log.add("尝试隐藏全屏控屏窗口: " + getHex(h));
                             closeHandle(h);
                             return;
                         }
                         //普通控屏窗口
                         h = FindWindow(this.R_normal_window_class_name, null);
-                        if (h != IntPtr.Zero && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                        if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
                             log.add("尝试隐藏普通控屏窗口: " + getHex(h));
                             closeHandle(h);
                             return;
@@ -193,6 +268,39 @@ namespace FuckRedSpider {
                             closeHandle(process.MainWindowHandle);
                         }
                     }
+                    return;
+                }if (attached_target.Checked) {
+                    IntPtr h;
+                    try {
+                        //获取目标窗口(全屏)
+                        h = FindWindow(this.R_full_window_class_name, null);
+                        if(h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                            //确认父窗口是否为target_panel
+
+                            if (h != target_panel.Handle) {
+                                _SetParent(h, target_panel.Handle);
+                                //强制缩放为target_panel的大小
+                                SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                                log.add("嵌入全屏窗口: " + getHex(h));
+                                log.ignore(2);
+                                _keyboardGuard.Stop();
+                                _keyboardGuard.Start();
+                            }
+                            return;
+                        }else{
+                            h = FindWindow(this.R_normal_window_class_name, null);
+                            if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                                //确认父窗口是否为target_panel
+                                if (h != target_panel.Handle) {
+                                    _SetParent(h, target_panel.Handle);
+                                    //强制缩放为target_panel的大小
+                                    SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                                    log.add("嵌入普通窗口: " + getHex(h));
+                                }
+                                return;
+                            }
+                        }
+                    } catch { }
                 }
             } else {
                 //无进程信息，更改显示
@@ -206,12 +314,24 @@ namespace FuckRedSpider {
             //逻辑上关闭和隐藏不需要同时发生
             if (auto_kill.Checked) {
                 auto_hide.Checked = false;
+                attached_target.Checked = false;
             }
         }
 
         private void auto_hide_CheckedChanged(object sender, EventArgs e) {
             if (auto_hide.Checked) {
                 auto_kill.Checked = false;
+                attached_target.Checked= false;
+            }
+        }
+        //将目标窗口嵌入到target_panel
+        private void attached_target_CheckedChanged(object sender, EventArgs e) {
+            if (attached_target.Checked) {
+                auto_hide.Checked = false;
+                auto_kill.Checked = false;
+                _keyboardGuard.Start();
+            } else {
+                _keyboardGuard.Stop();
             }
         }
 
@@ -223,13 +343,16 @@ namespace FuckRedSpider {
                 //防止误杀自己
                 auto_hide.Checked = false;
                 auto_kill.Checked = false;
+                attached_target.Checked=false;
                 auto_hide.Enabled = false;
                 auto_kill.Enabled = false;
+                attached_target.Enabled = false;
                 name_conflict_err.Visible = true;
             } else {
                 name_conflict_err.Visible = false;
                 auto_hide.Enabled = true;
                 auto_kill.Enabled = true;
+                attached_target.Enabled = true;
             }
         }
 
@@ -261,7 +384,5 @@ namespace FuckRedSpider {
             new FuckRedSpider.Form2().ShowDialog();
             System.GC.Collect();
         }
-
-
     }
 }

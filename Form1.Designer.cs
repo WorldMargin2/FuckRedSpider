@@ -40,8 +40,6 @@ namespace FuckRedSpider {
             this.topest_with_timer = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.group_log = new System.Windows.Forms.GroupBox();
-            this.textbox_log = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -49,11 +47,21 @@ namespace FuckRedSpider {
             this.full_window_class = new System.Windows.Forms.TextBox();
             this.n_w_c_l = new System.Windows.Forms.Label();
             this.f_w_c_l = new System.Windows.Forms.Label();
+            this.attached_target = new System.Windows.Forms.CheckBox();
+            this.target_panel = new System.Windows.Forms.Panel();
+            this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.group_log = new System.Windows.Forms.GroupBox();
+            this.textbox_log = new System.Windows.Forms.TextBox();
             this.group_running_stat.SuspendLayout();
-            this.group_log.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabControl4.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.group_log.SuspendLayout();
             this.SuspendLayout();
             // 
             // listener_timer
@@ -66,8 +74,8 @@ namespace FuckRedSpider {
             this.group_running_stat.Controls.Add(this.label_process_pid);
             this.group_running_stat.Controls.Add(this.label_running_stat);
             this.group_running_stat.Controls.Add(this.label_1);
-            this.group_running_stat.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.group_running_stat.Location = new System.Drawing.Point(43, 35);
+            this.group_running_stat.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.group_running_stat.Location = new System.Drawing.Point(6, 6);
             this.group_running_stat.Name = "group_running_stat";
             this.group_running_stat.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.group_running_stat.Size = new System.Drawing.Size(228, 162);
@@ -187,7 +195,7 @@ namespace FuckRedSpider {
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(753, 527);
+            this.button1.Location = new System.Drawing.Point(754, 534);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -195,33 +203,12 @@ namespace FuckRedSpider {
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // group_log
-            // 
-            this.group_log.Controls.Add(this.textbox_log);
-            this.group_log.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.group_log.Location = new System.Drawing.Point(43, 203);
-            this.group_log.Name = "group_log";
-            this.group_log.Size = new System.Drawing.Size(477, 314);
-            this.group_log.TabIndex = 3;
-            this.group_log.TabStop = false;
-            this.group_log.Text = "日志";
-            // 
-            // textbox_log
-            // 
-            this.textbox_log.Location = new System.Drawing.Point(7, 19);
-            this.textbox_log.Multiline = true;
-            this.textbox_log.Name = "textbox_log";
-            this.textbox_log.ReadOnly = true;
-            this.textbox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textbox_log.Size = new System.Drawing.Size(466, 289);
-            this.textbox_log.TabIndex = 0;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabControl1.Location = new System.Drawing.Point(522, 35);
+            this.tabControl1.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabControl1.Location = new System.Drawing.Point(485, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(306, 486);
@@ -231,11 +218,12 @@ namespace FuckRedSpider {
             // 
             this.tabPage1.Controls.Add(this.topest_with_timer);
             this.tabPage1.Controls.Add(this.auto_kill);
+            this.tabPage1.Controls.Add(this.attached_target);
             this.tabPage1.Controls.Add(this.auto_hide);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(296, 348);
+            this.tabPage1.Size = new System.Drawing.Size(298, 457);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "主选项";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -299,15 +287,89 @@ namespace FuckRedSpider {
             this.f_w_c_l.Text = "全屏窗口类名";
             this.f_w_c_l.DoubleClick += new System.EventHandler(this.f_w_c_l_DoubleClick);
             // 
+            // attached_target
+            // 
+            this.attached_target.AutoSize = true;
+            this.attached_target.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.attached_target.Location = new System.Drawing.Point(6, 118);
+            this.attached_target.Name = "attached_target";
+            this.attached_target.Size = new System.Drawing.Size(141, 19);
+            this.attached_target.TabIndex = 2;
+            this.attached_target.Text = "附加窗口到控键";
+            this.attached_target.UseVisualStyleBackColor = true;
+            this.attached_target.CheckedChanged += new System.EventHandler(this.attached_target_CheckedChanged);
+            // 
+            // target_panel
+            // 
+            this.target_panel.Location = new System.Drawing.Point(6, 6);
+            this.target_panel.Name = "target_panel";
+            this.target_panel.Size = new System.Drawing.Size(796, 479);
+            this.target_panel.TabIndex = 0;
+            // 
+            // tabControl4
+            // 
+            this.tabControl4.Controls.Add(this.tabPage7);
+            this.tabControl4.Controls.Add(this.tabPage8);
+            this.tabControl4.Location = new System.Drawing.Point(12, 12);
+            this.tabControl4.Name = "tabControl4";
+            this.tabControl4.SelectedIndex = 0;
+            this.tabControl4.Size = new System.Drawing.Size(816, 520);
+            this.tabControl4.TabIndex = 8;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.group_running_stat);
+            this.tabPage7.Controls.Add(this.group_log);
+            this.tabPage7.Controls.Add(this.tabControl1);
+            this.tabPage7.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(808, 491);
+            this.tabPage7.TabIndex = 0;
+            this.tabPage7.Text = "主界面";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.target_panel);
+            this.tabPage8.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabPage8.Location = new System.Drawing.Point(4, 25);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(808, 491);
+            this.tabPage8.TabIndex = 1;
+            this.tabPage8.Text = "附加窗口";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // group_log
+            // 
+            this.group_log.Controls.Add(this.textbox_log);
+            this.group_log.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.group_log.Location = new System.Drawing.Point(3, 174);
+            this.group_log.Name = "group_log";
+            this.group_log.Size = new System.Drawing.Size(477, 314);
+            this.group_log.TabIndex = 3;
+            this.group_log.TabStop = false;
+            this.group_log.Text = "日志";
+            // 
+            // textbox_log
+            // 
+            this.textbox_log.Location = new System.Drawing.Point(7, 19);
+            this.textbox_log.Multiline = true;
+            this.textbox_log.Name = "textbox_log";
+            this.textbox_log.ReadOnly = true;
+            this.textbox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textbox_log.Size = new System.Drawing.Size(466, 289);
+            this.textbox_log.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 562);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.group_log);
+            this.ClientSize = new System.Drawing.Size(841, 569);
+            this.Controls.Add(this.tabControl4);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.group_running_stat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -316,13 +378,16 @@ namespace FuckRedSpider {
             this.Text = "红蜘蛛终结者";
             this.group_running_stat.ResumeLayout(false);
             this.group_running_stat.PerformLayout();
-            this.group_log.ResumeLayout(false);
-            this.group_log.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabControl4.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            this.group_log.ResumeLayout(false);
+            this.group_log.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -343,8 +408,6 @@ namespace FuckRedSpider {
         private System.Windows.Forms.TextBox label_process_pid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label name_conflict_err;
-        private System.Windows.Forms.GroupBox group_log;
-        private System.Windows.Forms.TextBox textbox_log;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -352,6 +415,13 @@ namespace FuckRedSpider {
         private System.Windows.Forms.Label f_w_c_l;
         private System.Windows.Forms.TextBox normal_window_class;
         private System.Windows.Forms.TextBox full_window_class;
+        private System.Windows.Forms.CheckBox attached_target;
+        private System.Windows.Forms.Panel target_panel;
+        private System.Windows.Forms.TabControl tabControl4;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.GroupBox group_log;
+        private System.Windows.Forms.TextBox textbox_log;
     }
 }
 
