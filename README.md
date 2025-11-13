@@ -1,5 +1,33 @@
 # FuckRedSpider 🕷️🛡️
 
+### GitHub
+
+[![GitHub stars](https://img.shields.io/github/stars/WorldMargin2/FuckRedSpider?style=social)](https://github.com/WorldMargin2/FuckRedSpider)
+[![GitHub forks](https://img.shields.io/github/forks/WorldMargin2/FuckRedSpider?style=social)](https://github.com/WorldMargin2/FuckRedSpider)
+[![GitHub release](https://img.shields.io/github/release/WorldMargin2/FuckRedSpider.svg)](https://github.com/WorldMargin2/FuckRedSpider/releases)
+
+
+**贡献者:**
+[![贡献者](https://contrib.rocks/image?repo=WorldMargin2/FuckRedSpider)](https://github.com/WorldMargin2/FuckRedSpider/graphs/contributors)
+
+---
+
+### Gitee
+
+[![Gitee stars](https://gitee.com/WorldMargin/FuckRedSpider/badge/star.svg?theme=dark)](https://gitee.com/WorldMargin/FuckRedSpider)
+[![Gitee forks](https://gitee.com/WorldMargin/FuckRedSpider/badge/fork.svg?theme=dark)](https://gitee.com/WorldMargin/FuckRedSpider)
+[📦 Gitee Releases](https://gitee.com/WorldMargin/FuckRedSpider/releases) | [👥 Gitee Members](https://gitee.com/WorldMargin/FuckRedSpider/members)
+
+**贡献者:**
+[![贡献者](https://contrib.rocks/image?repo=WorldMargin/FuckRedSpider)](https://gitee.com/WorldMargin/FuckRedSpider/graphs/contributors)
+
+---
+
+# 简介 📖
+
+你是否曾在上课时被老师控制屏幕？  
+是否无数次被老师全屏贴脸？
+
 你是否曾在中路对狙时时被万恶的红蜘蛛打断？  
 是否无数次被红蜘蛛全屏贴脸？
 
