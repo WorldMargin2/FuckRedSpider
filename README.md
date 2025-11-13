@@ -18,8 +18,7 @@
 [![Gitee forks](https://gitee.com/WorldMargin/FuckRedSpider/badge/fork.svg?theme=dark)](https://gitee.com/WorldMargin/FuckRedSpider)
 [📦 Gitee Releases](https://gitee.com/WorldMargin/FuckRedSpider/releases) | [👥 Gitee Members](https://gitee.com/WorldMargin/FuckRedSpider/members)
 
-**贡献者:**
-[![贡献者](https://contrib.rocks/image?repo=WorldMargin/FuckRedSpider)](https://gitee.com/WorldMargin/FuckRedSpider/graphs/contributors)
+
 
 ---
 
