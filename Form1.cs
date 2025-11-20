@@ -69,11 +69,8 @@ namespace FuckRedSpider {
 
 
         private const string default_RMPN = "REDAgent";
-        private string R_MainProcessName = default_RMPN;
         private const string default_RFWCN = "DIBFullViewClass";
-        private string R_full_window_class_name = default_RFWCN;
         private const string default_RNWCN = "RedEagle.Monitor";
-        private string R_normal_window_class_name = default_RNWCN;
 
         private readonly string this_process_name = Process.GetCurrentProcess().ProcessName;
 
@@ -136,6 +133,7 @@ namespace FuckRedSpider {
             _keyboardGuard.GuardStarted += KeyboardGuard_GuardStarted;
             _keyboardGuard.GuardStopped += KeyboardGuard_GuardStopped;
             _keyboardGuard.ErrorOccurred += KeyboardGuard_ErrorOccurred;
+            config_TabControl.BringToFront();
         }
 
         private void bindTip() {
@@ -210,98 +208,20 @@ namespace FuckRedSpider {
                 this.TopMost = true;//防止被覆盖
             }
 
-            Process[] p = Process.GetProcessesByName(this.R_MainProcessName);
+            Process[] p = Process.GetProcessesByName(process_name.Text.Trim());
             if (p.Length > 0) {
-                //信息显示
-                label_running_stat.Text = "是";
-                label_running_stat.ForeColor = Color.Green;
-
-                bool equals = true;
                 List<string> lines = new List<string> { };
-
-                if (p.Count() != label_process_pid.Lines.Count()) {
-                    equals = false;//数量不等，结果不等
-                }
-                foreach (var _ in p) {
-                    string s = _.Id.ToString();
-                    lines.Add(s);
-                    if (equals && (!label_process_pid.Lines.Contains(s))) {    //equals在&&前面，防止多余的比较；s不在Lines中时代表结果不相等
-                        equals = false;
-                    }
-                }
-
-                if (!equals) {
-                    label_process_pid.Lines = lines.ToArray();//更新PID显示
-                }
+                call_show_info(ref p, ref lines);
 
                 //操作
                 if (auto_kill.Checked) {
-                    foreach (var _ in p) {
-                        _.Kill();   //杀死目标进程
-                    }
-                    return;
+                    call_kill_proc(ref p);
+                }else if (auto_hide.Checked) {
+                    call_hide_window(ref p,ref lines);
+                }else if (attached_target.Checked) {
+                    call_attach_window(ref p, ref lines);
                 }
-                if (auto_hide.Checked) {
-                    //DIBFullViewClass
-
-
-                    IntPtr h;
-                    try {
-                        h = FindWindow(this.R_full_window_class_name, null);
-                        if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
-                            log.add("尝试隐藏全屏控屏窗口: " + getHex(h));
-                            closeHandle(h);
-                            return;
-                        }
-                        //普通控屏窗口
-                        h = FindWindow(this.R_normal_window_class_name, null);
-                        if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
-                            log.add("尝试隐藏普通控屏窗口: " + getHex(h));
-                            closeHandle(h);
-                            return;
-                        }
-                    } catch {
-                    }
-
-                    foreach (var process in p) {
-                        if (!IsIconic(process.MainWindowHandle)) {
-                            closeHandle(process.MainWindowHandle);
-                        }
-                    }
-                    return;
-                }if (attached_target.Checked) {
-                    IntPtr h;
-                    try {
-                        //获取目标窗口(全屏)
-                        h = FindWindow(this.R_full_window_class_name, null);
-                        if(h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
-                            //确认父窗口是否为target_panel
-
-                            if (h != target_panel.Handle) {
-                                _SetParent(h, target_panel.Handle);
-                                //强制缩放为target_panel的大小
-                                SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
-                                log.add("嵌入全屏窗口: " + getHex(h));
-                                log.ignore(2);
-                                _keyboardGuard.Stop();
-                                _keyboardGuard.Start();
-                            }
-                            return;
-                        }else{
-                            h = FindWindow(this.R_normal_window_class_name, null);
-                            if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
-                                //确认父窗口是否为target_panel
-                                if (h != target_panel.Handle) {
-                                    _SetParent(h, target_panel.Handle);
-                                    //强制缩放为target_panel的大小
-                                    SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
-                                    log.add("嵌入普通窗口: " + getHex(h));
-                                }
-                                return;
-                            }
-                        }
-                    } catch { }
-                }
+                return;
             } else {
                 //无进程信息，更改显示
                 label_running_stat.Text = "否";
@@ -309,6 +229,96 @@ namespace FuckRedSpider {
                 label_process_pid.Text = "None";
             }
         }
+
+
+        private void call_show_info(ref Process[] p, ref List<string> lines) {
+            //信息显示
+            label_running_stat.Text = "是";
+            label_running_stat.ForeColor = Color.Green;
+
+            bool equals = true;
+
+            if (p.Count() != label_process_pid.Lines.Count()) {
+                equals = false;//数量不等，结果不等
+            }
+            foreach (var _ in p) {
+                string s = _.Id.ToString();
+                lines.Add(s);
+                if (equals && (!label_process_pid.Lines.Contains(s))) {    //equals在&&前面，防止多余的比较；s不在Lines中时代表结果不相等
+                    equals = false;
+                }
+            }
+
+            if (!equals) {
+                label_process_pid.Lines = lines.ToArray();//更新PID显示
+            }
+        }
+        private void call_kill_proc(ref Process[] p) {
+            foreach (var _ in p) {
+                _.Kill();   //杀死目标进程
+            }
+        }
+        private void call_hide_window(ref Process[] p,ref List<string> lines) {
+            IntPtr h;
+            try {
+                //全屏控屏窗口
+                h = FindWindow(full_window_class.Text.Trim(), null);
+                if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                    log.add("尝试隐藏全屏控屏窗口: " + getHex(h));
+                    closeHandle(h);
+                    return;
+                }
+                //普通控屏窗口
+                h = FindWindow(full_window_class.Text.Trim(), null);
+                if (h != IntPtr.Zero && validProcess(h) && lines.Contains(getProcessIdByHandle(h).ToString())) {
+                    log.add("尝试隐藏普通控屏窗口: " + getHex(h));
+                    closeHandle(h);
+                    return;
+                }
+            } catch {}
+            foreach (var process in p) {
+                if (!IsIconic(process.MainWindowHandle)) {
+                    closeHandle(process.MainWindowHandle);
+                }
+            }
+        }
+        private void call_attach_window(ref Process[] p, ref List<string> lines) {
+            IntPtr h;
+            try {
+                //获取目标窗口(全屏)
+                h = FindWindow(full_window_class.Text.Trim(), null);
+                if (h != IntPtr.Zero && 
+                    validProcess(h) && 
+                    lines.Contains(getProcessIdByHandle(h).ToString()) &&
+                    h != target_panel.Handle    //确认父窗口是否为target_panel
+                ) {
+                    _SetParent(h, target_panel.Handle);
+                    //强制缩放为target_panel的大小
+                    SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                    log.add("嵌入全屏窗口: " + getHex(h));
+                    log.ignore(2);
+                    _keyboardGuard.Stop();
+                    _keyboardGuard.Start();
+                    return;
+                } else {
+                    //获取目标窗口(普通)
+                    h = FindWindow(full_window_class.Text.Trim(), null);
+                    if (h != IntPtr.Zero &&
+                        validProcess(h) &&
+                        lines.Contains(getProcessIdByHandle(h).ToString())&&
+                        h != target_panel.Handle    //确认父窗口是否为target_panel
+                    ) {
+                        _SetParent(h, target_panel.Handle);
+                        //强制缩放为target_panel的大小
+                        SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                        log.add("嵌入普通窗口: " + getHex(h));
+                        return;
+                    }
+                }
+            } catch { }
+        }
+
+
         //======================对目标采取的操作==============================
         private void auto_kill_CheckedChanged(object sender, EventArgs e) {
             //逻辑上关闭和隐藏不需要同时发生
@@ -338,8 +348,7 @@ namespace FuckRedSpider {
 
         //===================更改目标进程名字以适应目标名称变化===================
         private void process_name_TextChanged(object sender, EventArgs e) {
-            this.R_MainProcessName = process_name.Text.Trim();//更改目标进程名称
-            if (this.R_MainProcessName == this.this_process_name) {
+            if (process_name.Text.Trim() == this.this_process_name) {
                 //防止误杀自己
                 auto_hide.Checked = false;
                 auto_kill.Checked = false;
@@ -360,22 +369,16 @@ namespace FuckRedSpider {
             process_name.Text = default_RMPN;//重置名称
             process_name_TextChanged(sender, e);
         }
-        private void full_window_class_TextChanged(object sender, EventArgs e) {
-            this.R_full_window_class_name = full_window_class.Text.Trim();
-        }
+
 
         private void f_w_c_l_DoubleClick(object sender, EventArgs e) {
             this.full_window_class.Text = default_RFWCN;//重置名称
-            full_window_class_TextChanged(sender, e);
         }
 
 
-        private void normal_window_class_TextChanged(object sender, EventArgs e) {
-            this.R_normal_window_class_name = normal_window_class.Text.Trim();
-        }
+
         private void n_w_c_l_DoubleClick(object sender, EventArgs e) {
             this.normal_window_class.Text = default_RNWCN;//重置名称
-            normal_window_class_TextChanged(sender, e);
         }
         //================================================================
 

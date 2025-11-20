@@ -6,7 +6,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/WorldMargin2/FuckRedSpider?style=social)](https://github.com/WorldMargin2/FuckRedSpider)
 [![GitHub release](https://img.shields.io/github/release/WorldMargin2/FuckRedSpider.svg)](https://github.com/WorldMargin2/FuckRedSpider/releases)
 
-
 **贡献者:**
 [![贡献者](https://contrib.rocks/image?repo=WorldMargin2/FuckRedSpider)](https://github.com/WorldMargin2/FuckRedSpider/graphs/contributors)
 
@@ -17,8 +16,6 @@
 [![Gitee stars](https://gitee.com/WorldMargin/FuckRedSpider/badge/star.svg?theme=dark)](https://gitee.com/WorldMargin/FuckRedSpider)
 [![Gitee forks](https://gitee.com/WorldMargin/FuckRedSpider/badge/fork.svg?theme=dark)](https://gitee.com/WorldMargin/FuckRedSpider)
 [📦 Gitee Releases](https://gitee.com/WorldMargin/FuckRedSpider/releases) | [👥 Gitee Members](https://gitee.com/WorldMargin/FuckRedSpider/members)
-
-
 
 ---
 
@@ -73,6 +70,19 @@
 - 如遇杀毒软件误报，请添加信任或白名单。再好的工具也要安全使用！🍰
 - 若监控进程名与本程序相同，相关操作会自动禁用，防止误杀自身，建议将本软件改为与红蜘蛛主程序不同的名称。自保最重要，😍！
 - 若控屏窗口类名被目标软件更改，可在“自定义”标签页中手动修改，双击标签可恢复默认。
+
+---
+
+# 更新日志 📝
+
+## v1.0.0.2 （2025-11-20）
+- 代码重构优化：将主要监听逻辑拆分为多个独立函数，提高代码可读性和维护性
+- 改进窗口嵌入逻辑：优化了附加窗口到控键功能，减少了重复代码和潜在错误
+- UI布局优化：
+  * 优化了控件位置和大小
+  * 将"自定义"标签页移至前台
+  * 增加窗口透明度设置
+  * 优化了日志显示区域
 
 ---
 
