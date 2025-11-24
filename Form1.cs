@@ -387,5 +387,13 @@ namespace FuckRedSpider {
             new FuckRedSpider.Form2().ShowDialog();
             System.GC.Collect();
         }
+
+        private void main_tabcontrol_SelectedIndexChanged(object sender, EventArgs e) {
+            if (config_TabControl.SelectedIndex == 0 && main_tabcontrol.SelectedIndex == 0) {
+                this.MinimumSize = new System.Drawing.Size(355, 325);
+            } else {
+                this.MinimumSize = new System.Drawing.Size(0, 0);
+            }
+        }
     }
 }
