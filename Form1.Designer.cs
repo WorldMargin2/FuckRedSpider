@@ -387,6 +387,7 @@ namespace FuckRedSpider {
             this.ClientSize = new System.Drawing.Size(841, 569);
             this.Controls.Add(this.tabControl4);
             this.Controls.Add(this.button1);
+            this.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";

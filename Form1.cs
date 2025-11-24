@@ -43,11 +43,11 @@ namespace FuckRedSpider {
         [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
         public static extern long GetWindowLong(IntPtr hWnd, int nIndex);
 
-        public static void _SetParent(IntPtr child,IntPtr hWndNewParent){
-            ShowWindow(child , 0);                 //先将窗体隐藏，防止出现闪烁
-            SetParent(child , hWndNewParent);      //将第三方窗体嵌入父容器      
-            ShowWindow(child , 3);                 //让第三方窗体在容器中最大化显示
-            RemoveWindowTitle(child );             // 去除窗体标题
+        public static void _SetParent(IntPtr child, IntPtr hWndNewParent) {
+            ShowWindow(child, 0);                 //先将窗体隐藏，防止出现闪烁
+            SetParent(child, hWndNewParent);      //将第三方窗体嵌入父容器      
+            ShowWindow(child, 3);                 //让第三方窗体在容器中最大化显示
+            RemoveWindowTitle(child);             // 去除窗体标题
         }
 
 
@@ -55,7 +55,7 @@ namespace FuckRedSpider {
         /// 去除窗体标题
         /// </summary>
         /// <param name="vHandle">窗口句柄</param>
-        public static void RemoveWindowTitle(IntPtr vHandle){
+        public static void RemoveWindowTitle(IntPtr vHandle) {
             long style = GetWindowLong(vHandle, -16);
             style &= ~0x00C00000;
             SetWindowLong(vHandle, -16, style);
@@ -93,7 +93,7 @@ namespace FuckRedSpider {
         public struct Log {
             TextBox textbox_log;
             int ignore_times;
-            public Log(TextBox textBox,int ignore_times=0) {
+            public Log(TextBox textBox, int ignore_times = 0) {
                 this.textbox_log = textBox;
                 this.ignore_times = 0;
             }
@@ -216,9 +216,9 @@ namespace FuckRedSpider {
                 //操作
                 if (auto_kill.Checked) {
                     call_kill_proc(ref p);
-                }else if (auto_hide.Checked) {
-                    call_hide_window(ref p,ref lines);
-                }else if (attached_target.Checked) {
+                } else if (auto_hide.Checked) {
+                    call_hide_window(ref p, ref lines);
+                } else if (attached_target.Checked) {
                     call_attach_window(ref p, ref lines);
                 }
                 return;
@@ -258,7 +258,7 @@ namespace FuckRedSpider {
                 _.Kill();   //杀死目标进程
             }
         }
-        private void call_hide_window(ref Process[] p,ref List<string> lines) {
+        private void call_hide_window(ref Process[] p, ref List<string> lines) {
             IntPtr h;
             try {
                 //全屏控屏窗口
@@ -275,7 +275,7 @@ namespace FuckRedSpider {
                     closeHandle(h);
                     return;
                 }
-            } catch {}
+            } catch { }
             foreach (var process in p) {
                 if (!IsIconic(process.MainWindowHandle)) {
                     closeHandle(process.MainWindowHandle);
@@ -287,8 +287,8 @@ namespace FuckRedSpider {
             try {
                 //获取目标窗口(全屏)
                 h = FindWindow(full_window_class.Text.Trim(), null);
-                if (h != IntPtr.Zero && 
-                    validProcess(h) && 
+                if (h != IntPtr.Zero &&
+                    validProcess(h) &&
                     lines.Contains(getProcessIdByHandle(h).ToString()) &&
                     h != target_panel.Handle    //确认父窗口是否为target_panel
                 ) {
@@ -305,7 +305,7 @@ namespace FuckRedSpider {
                     h = FindWindow(full_window_class.Text.Trim(), null);
                     if (h != IntPtr.Zero &&
                         validProcess(h) &&
-                        lines.Contains(getProcessIdByHandle(h).ToString())&&
+                        lines.Contains(getProcessIdByHandle(h).ToString()) &&
                         h != target_panel.Handle    //确认父窗口是否为target_panel
                     ) {
                         _SetParent(h, target_panel.Handle);
@@ -331,7 +331,7 @@ namespace FuckRedSpider {
         private void auto_hide_CheckedChanged(object sender, EventArgs e) {
             if (auto_hide.Checked) {
                 auto_kill.Checked = false;
-                attached_target.Checked= false;
+                attached_target.Checked = false;
             }
         }
         //将目标窗口嵌入到target_panel
@@ -352,7 +352,7 @@ namespace FuckRedSpider {
                 //防止误杀自己
                 auto_hide.Checked = false;
                 auto_kill.Checked = false;
-                attached_target.Checked=false;
+                attached_target.Checked = false;
                 auto_hide.Enabled = false;
                 auto_kill.Enabled = false;
                 attached_target.Enabled = false;
