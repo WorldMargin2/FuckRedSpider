@@ -53,7 +53,7 @@ namespace FuckRedSpider {
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.group_log = new System.Windows.Forms.GroupBox();
             this.textbox_log = new System.Windows.Forms.TextBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.attach_page = new System.Windows.Forms.TabPage();
             this.group_running_stat.SuspendLayout();
             this.config_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -61,7 +61,7 @@ namespace FuckRedSpider {
             this.main_tabcontrol.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.group_log.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            this.attach_page.SuspendLayout();
             this.SuspendLayout();
             // 
             // listener_timer
@@ -308,7 +308,9 @@ namespace FuckRedSpider {
             // 
             // target_panel
             // 
-            this.target_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.target_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.target_panel.Location = new System.Drawing.Point(3, 3);
             this.target_panel.Name = "target_panel";
             this.target_panel.Size = new System.Drawing.Size(802, 485);
@@ -320,7 +322,7 @@ namespace FuckRedSpider {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.main_tabcontrol.Controls.Add(this.tabPage7);
-            this.main_tabcontrol.Controls.Add(this.tabPage8);
+            this.main_tabcontrol.Controls.Add(this.attach_page);
             this.main_tabcontrol.Location = new System.Drawing.Point(12, 12);
             this.main_tabcontrol.Name = "main_tabcontrol";
             this.main_tabcontrol.SelectedIndex = 0;
@@ -371,17 +373,17 @@ namespace FuckRedSpider {
             this.textbox_log.Size = new System.Drawing.Size(488, 326);
             this.textbox_log.TabIndex = 0;
             // 
-            // tabPage8
+            // attach_page
             // 
-            this.tabPage8.Controls.Add(this.target_panel);
-            this.tabPage8.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage8.Location = new System.Drawing.Point(4, 25);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(808, 491);
-            this.tabPage8.TabIndex = 1;
-            this.tabPage8.Text = "附加窗口";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.attach_page.Controls.Add(this.target_panel);
+            this.attach_page.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.attach_page.Location = new System.Drawing.Point(4, 25);
+            this.attach_page.Name = "attach_page";
+            this.attach_page.Padding = new System.Windows.Forms.Padding(3);
+            this.attach_page.Size = new System.Drawing.Size(808, 491);
+            this.attach_page.TabIndex = 1;
+            this.attach_page.Text = "附加窗口";
+            this.attach_page.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -398,6 +400,7 @@ namespace FuckRedSpider {
             this.Opacity = 0.95D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "红蜘蛛终结者";
+            this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.group_running_stat.ResumeLayout(false);
             this.group_running_stat.PerformLayout();
             this.config_TabControl.ResumeLayout(false);
@@ -410,7 +413,7 @@ namespace FuckRedSpider {
             this.tabPage7.PerformLayout();
             this.group_log.ResumeLayout(false);
             this.group_log.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
+            this.attach_page.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -442,7 +445,7 @@ namespace FuckRedSpider {
         private System.Windows.Forms.Panel target_panel;
         private System.Windows.Forms.TabControl main_tabcontrol;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TabPage attach_page;
         private System.Windows.Forms.GroupBox group_log;
         private System.Windows.Forms.TextBox textbox_log;
     }

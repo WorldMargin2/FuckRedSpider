@@ -11,38 +11,6 @@ using Process = System.Diagnostics.Process;
 namespace FuckRedSpider {
 
     public partial class Form1 : Form {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
-
-        //===========================================================
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool IsIconic(IntPtr hWnd);
-        //===========================================================
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
-        //===========================================================
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-        //===========================================================
-        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        //========================GetWindowThreadProcessId===================================
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-        //========================setParent================================================
-        [DllImport("user32.dll ", EntryPoint = "SetParent")]
-        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong", CharSet = CharSet.Auto)]
-        public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
-
-
-        [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
-        public static extern long GetWindowLong(IntPtr hWnd, int nIndex);
-
         public static void _SetParent(IntPtr child, IntPtr hWndNewParent) {
             ShowWindow(child, 0);                 //先将窗体隐藏，防止出现闪烁
             SetParent(child, hWndNewParent);      //将第三方窗体嵌入父容器      
@@ -62,10 +30,11 @@ namespace FuckRedSpider {
 
         }
 
-
-        //===========================================================
         private const UInt32 WM_CLOSE = 0x0010;
         private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+
+
+        //===========================================================
 
 
         private const string default_RMPN = "REDAgent";
@@ -76,6 +45,7 @@ namespace FuckRedSpider {
 
         private readonly GlobalKeyboardHookGuard _keyboardGuard;
         private bool keyboardGuardRunning = false;
+        IntPtr target_window;
 
         void KeyboardGuard_GuardStarted(object sender, EventArgs e) {
             log.add("键盘守护启动");
@@ -89,7 +59,7 @@ namespace FuckRedSpider {
             log.add("键盘守护出错: " + e.GetException().Message);
         }
         //======================日志相关==============================
-
+        #region --日志--
         public struct Log {
             TextBox textbox_log;
             int ignore_times;
@@ -120,6 +90,7 @@ namespace FuckRedSpider {
             }
         }
         private Log log;
+        #endregion
         //===========================================================
         public Form1(string[] args) {
             InitializeComponent();
@@ -283,38 +254,42 @@ namespace FuckRedSpider {
             }
         }
         private void call_attach_window(ref Process[] p, ref List<string> lines) {
-            IntPtr h;
             try {
-                //获取目标窗口(全屏)
-                h = FindWindow(full_window_class.Text.Trim(), null);
-                if (h != IntPtr.Zero &&
-                    validProcess(h) &&
-                    lines.Contains(getProcessIdByHandle(h).ToString()) &&
-                    h != target_panel.Handle    //确认父窗口是否为target_panel
+                if (
+                    target_window != IntPtr.Zero &&
+                    GetParent(target_window) != IntPtr.Zero
+                ) return;
+
+                #region --获取目标窗口(全屏)--
+
+                target_window = FindWindow(full_window_class.Text.Trim(), null);
+                if (target_window != IntPtr.Zero &&
+                    validProcess(target_window) &&
+                    lines.Contains(getProcessIdByHandle(target_window).ToString())
                 ) {
-                    _SetParent(h, target_panel.Handle);
+                    _SetParent(target_window, target_panel.Handle);
                     //强制缩放为target_panel的大小
-                    SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
-                    log.add("嵌入全屏窗口: " + getHex(h));
+                    SetWindowPos(target_window, target_panel.Handle, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                    log.add("嵌入全屏窗口: " + getHex(target_window));
                     log.ignore(2);
                     _keyboardGuard.Stop();
                     _keyboardGuard.Start();
                     return;
-                } else {
-                    //获取目标窗口(普通)
-                    h = FindWindow(full_window_class.Text.Trim(), null);
-                    if (h != IntPtr.Zero &&
-                        validProcess(h) &&
-                        lines.Contains(getProcessIdByHandle(h).ToString()) &&
-                        h != target_panel.Handle    //确认父窗口是否为target_panel
-                    ) {
-                        _SetParent(h, target_panel.Handle);
-                        //强制缩放为target_panel的大小
-                        SetWindowPos(h, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
-                        log.add("嵌入普通窗口: " + getHex(h));
-                        return;
-                    }
                 }
+                #endregion
+                #region --获取目标窗口(普通)--
+                target_window = FindWindow(full_window_class.Text.Trim(), null);
+                if (target_window != IntPtr.Zero &&
+                    validProcess(target_window) &&
+                    lines.Contains(getProcessIdByHandle(target_window).ToString())
+                ) {
+                    _SetParent(target_window, target_panel.Handle);
+                    //强制缩放为target_panel的大小
+                    SetWindowPos(target_window, target_panel.Handle, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                    log.add("嵌入普通窗口: " + getHex(target_window));
+                    return;
+                }
+                #endregion
             } catch { }
         }
 
@@ -342,6 +317,7 @@ namespace FuckRedSpider {
                 _keyboardGuard.Start();
             } else {
                 _keyboardGuard.Stop();
+                target_window=IntPtr.Zero;
             }
         }
 
@@ -393,6 +369,15 @@ namespace FuckRedSpider {
                 this.MinimumSize = new System.Drawing.Size(355, 325);
             } else {
                 this.MinimumSize = new System.Drawing.Size(0, 0);
+            }
+        }
+
+
+        private void Form1_ResizeEnd(object sender, EventArgs e) {
+            if (attached_target.Checked) {
+                if (target_window != IntPtr.Zero) {
+                    SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                }
             }
         }
     }
