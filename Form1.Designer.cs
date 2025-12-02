@@ -401,6 +401,7 @@ namespace FuckRedSpider {
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "红蜘蛛终结者";
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.group_running_stat.ResumeLayout(false);
             this.group_running_stat.PerformLayout();
             this.config_TabControl.ResumeLayout(false);

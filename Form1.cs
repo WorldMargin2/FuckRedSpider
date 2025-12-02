@@ -46,6 +46,7 @@ namespace FuckRedSpider {
         private readonly GlobalKeyboardHookGuard _keyboardGuard;
         private bool keyboardGuardRunning = false;
         IntPtr target_window;
+        FormWindowState last_state = FormWindowState.Normal;
 
         void KeyboardGuard_GuardStarted(object sender, EventArgs e) {
             log.add("键盘守护启动");
@@ -378,6 +379,13 @@ namespace FuckRedSpider {
                 if (target_window != IntPtr.Zero) {
                     SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
                 }
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e) {
+            if(this.WindowState != last_state) {
+                last_state = this.WindowState;
+                Form1_ResizeEnd(sender, e);
             }
         }
     }
