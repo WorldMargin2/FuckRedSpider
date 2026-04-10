@@ -138,6 +138,11 @@
     <Compile Include="GlobalKeyboardHookGuard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="WindowsApi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,11 +162,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -172,12 +172,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Fonts\ALIMAMASHUHEITI-BOLD.TTF" />
     <None Include="Resources\github.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Fonts\HARMONYOS_SANS_SC_REGULAR.TTF" />
-    <None Include="Resources\Fonts\SMILEY_SANS_OBLIQUE_斜体.TTF" />
     <None Include="Resources\WorldMargin.png" />
   </ItemGroup>
   <ItemGroup>
