@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,12 +11,36 @@ using Process = System.Diagnostics.Process;
 
 namespace FuckRedSpider {
 
+
     public partial class Form1 : Form {
         public static void _SetParent(IntPtr child, IntPtr hWndNewParent) {
             ShowWindow(child, 0);                 //先将窗体隐藏，防止出现闪烁
             SetParent(child, hWndNewParent);      //将第三方窗体嵌入父容器      
             ShowWindow(child, 3);                 //让第三方窗体在容器中最大化显示
             RemoveWindowTitle(child);             // 去除窗体标题
+        }
+
+        /// <summary>
+        /// 添加第三方字体
+        /// </summary>
+        void AddPrivateFont() {
+            var pfc = new PrivateFontCollection();
+            var ALISHUHEI = Properties.Resources.ALIMAMASHUHEITI_BOLD;
+            var HARMONYSANS = Properties.Resources.HARMONYOS_SANS_SC_REGULAR;
+            var KUHEI = Properties.Resources.SMILEY_SANS_OBLIQUE_斜体;
+            unsafe  // 属性设置，生成中 允许不安全代码
+            {
+                // 将字体添加到PrivateFontCollection
+                fixed (byte* pFontData = ALISHUHEI) {
+                    pfc.AddMemoryFont((System.IntPtr)pFontData, ALISHUHEI.Length);
+                }
+                fixed (byte* pFontData = HARMONYSANS) {
+                    pfc.AddMemoryFont((System.IntPtr)pFontData, HARMONYSANS.Length);
+                }
+                fixed (byte* pFontData = KUHEI) {
+                    pfc.AddMemoryFont((System.IntPtr)pFontData, KUHEI.Length);
+                }
+            }
         }
 
 
@@ -94,7 +119,9 @@ namespace FuckRedSpider {
         #endregion
         //===========================================================
         public Form1(string[] args) {
+            AddPrivateFont();
             InitializeComponent();
+
             listener_timer.Start();
             this.bindTip();
             log = new Log(this.textbox_log);
@@ -174,6 +201,7 @@ namespace FuckRedSpider {
 
         //====================后台监听===============================
 
+        string origin_exeutable_path = "";
         private void Listen(object sender, EventArgs e) {
 
             if (topest_with_timer.Checked) {
@@ -181,17 +209,35 @@ namespace FuckRedSpider {
             }
 
             Process[] p = Process.GetProcessesByName(process_name.Text.Trim());
+
+            if(origin_exeutable_path == "") {
+                if (p.Length > 0) {
+                    origin_exeutable_path = p[0].MainModule.FileName;
+                }
+            } else {
+                if (auto_kill.Checked) {
+                    if (File.Exists(origin_exeutable_path)) {
+                        File.Move(origin_exeutable_path, origin_exeutable_path + ".bak");
+                    }
+                } else {
+                    if (File.Exists(origin_exeutable_path + ".bak")) {
+                        File.Move(origin_exeutable_path + ".bak", origin_exeutable_path);
+                    }
+                }
+            }
+            
             if (p.Length > 0) {
                 List<string> lines = new List<string> { };
                 call_show_info(ref p, ref lines);
-
                 //操作
                 if (auto_kill.Checked) {
                     call_kill_proc(ref p);
-                } else if (auto_hide.Checked) {
-                    call_hide_window(ref p, ref lines);
-                } else if (attached_target.Checked) {
-                    call_attach_window(ref p, ref lines);
+                } else {
+                    if (auto_hide.Checked) {
+                        call_hide_window(ref p, ref lines);
+                    } else if (attached_target.Checked) {
+                        call_attach_window(ref p, ref lines);
+                    }
                 }
                 return;
             } else {
@@ -325,6 +371,11 @@ namespace FuckRedSpider {
 
         //===================更改目标进程名字以适应目标名称变化===================
         private void process_name_TextChanged(object sender, EventArgs e) {
+            //恢复被改名的原文件，避免用户在输入其它名称时重命名文件未恢复
+            if(File.Exists(origin_exeutable_path + ".bak")) {
+                File.Move(origin_exeutable_path + ".bak", origin_exeutable_path);
+                origin_exeutable_path = "";
+            }
             if (process_name.Text.Trim() == this.this_process_name) {
                 //防止误杀自己
                 auto_hide.Checked = false;
@@ -386,6 +437,13 @@ namespace FuckRedSpider {
             if(this.WindowState != last_state) {
                 last_state = this.WindowState;
                 Form1_ResizeEnd(sender, e);
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //恢复被改名的原文件
+            if (File.Exists(origin_exeutable_path + ".bak")) {
+                File.Move(origin_exeutable_path + ".bak", origin_exeutable_path);
             }
         }
     }

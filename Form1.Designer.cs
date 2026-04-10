@@ -76,12 +76,14 @@ namespace FuckRedSpider {
             this.group_running_stat.Controls.Add(this.label_process_pid);
             this.group_running_stat.Controls.Add(this.label_running_stat);
             this.group_running_stat.Controls.Add(this.label_1);
-            this.group_running_stat.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.group_running_stat.Location = new System.Drawing.Point(6, 6);
-            this.group_running_stat.MinimumSize = new System.Drawing.Size(255, 127);
+            this.group_running_stat.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.group_running_stat.Location = new System.Drawing.Point(7, 7);
+            this.group_running_stat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.group_running_stat.MinimumSize = new System.Drawing.Size(287, 152);
             this.group_running_stat.Name = "group_running_stat";
+            this.group_running_stat.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.group_running_stat.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.group_running_stat.Size = new System.Drawing.Size(491, 127);
+            this.group_running_stat.Size = new System.Drawing.Size(552, 152);
             this.group_running_stat.TabIndex = 0;
             this.group_running_stat.TabStop = false;
             this.group_running_stat.Text = "运行状态";
@@ -90,9 +92,10 @@ namespace FuckRedSpider {
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(269, 70);
+            this.label1.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(303, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 15);
+            this.label1.Size = new System.Drawing.Size(75, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "进程pid：";
             // 
@@ -100,42 +103,46 @@ namespace FuckRedSpider {
             // 
             this.label_process_pid.AcceptsReturn = true;
             this.label_process_pid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_process_pid.Location = new System.Drawing.Point(354, 26);
+            this.label_process_pid.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_process_pid.Location = new System.Drawing.Point(398, 31);
+            this.label_process_pid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label_process_pid.Multiline = true;
             this.label_process_pid.Name = "label_process_pid";
             this.label_process_pid.ReadOnly = true;
             this.label_process_pid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.label_process_pid.Size = new System.Drawing.Size(131, 91);
+            this.label_process_pid.Size = new System.Drawing.Size(147, 108);
             this.label_process_pid.TabIndex = 4;
             this.label_process_pid.Text = "None";
             // 
             // label_running_stat
             // 
             this.label_running_stat.AutoSize = true;
+            this.label_running_stat.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_running_stat.ForeColor = System.Drawing.Color.Red;
-            this.label_running_stat.Location = new System.Drawing.Point(84, 49);
+            this.label_running_stat.Location = new System.Drawing.Point(94, 59);
             this.label_running_stat.Name = "label_running_stat";
-            this.label_running_stat.Size = new System.Drawing.Size(23, 15);
+            this.label_running_stat.Size = new System.Drawing.Size(23, 18);
             this.label_running_stat.TabIndex = 2;
             this.label_running_stat.Text = "否";
             // 
             // label_1
             // 
             this.label_1.AutoSize = true;
-            this.label_1.Location = new System.Drawing.Point(6, 49);
+            this.label_1.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_1.Location = new System.Drawing.Point(7, 59);
             this.label_1.Name = "label_1";
-            this.label_1.Size = new System.Drawing.Size(87, 15);
+            this.label_1.Size = new System.Drawing.Size(83, 18);
             this.label_1.TabIndex = 0;
             this.label_1.Text = "是否运行：";
             // 
             // name_conflict_err
             // 
             this.name_conflict_err.AutoSize = true;
-            this.name_conflict_err.Font = new System.Drawing.Font("黑体", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.name_conflict_err.Font = new System.Drawing.Font("得意黑", 6.6F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.name_conflict_err.ForeColor = System.Drawing.Color.Red;
-            this.name_conflict_err.Location = new System.Drawing.Point(69, 47);
+            this.name_conflict_err.Location = new System.Drawing.Point(78, 56);
             this.name_conflict_err.Name = "name_conflict_err";
-            this.name_conflict_err.Size = new System.Drawing.Size(221, 11);
+            this.name_conflict_err.Size = new System.Drawing.Size(169, 14);
             this.name_conflict_err.TabIndex = 5;
             this.name_conflict_err.Text = "目标进程与自身名称相同，禁用危险操作";
             this.name_conflict_err.Visible = false;
@@ -143,20 +150,21 @@ namespace FuckRedSpider {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(3, 19);
+            this.label2.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(3, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 15);
+            this.label2.Size = new System.Drawing.Size(83, 18);
             this.label2.TabIndex = 4;
             this.label2.Text = "目标进程名";
             this.label2.DoubleClick += new System.EventHandler(this.label2_DoubleClick);
             // 
             // process_name
             // 
-            this.process_name.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.process_name.Location = new System.Drawing.Point(107, 14);
+            this.process_name.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.process_name.Location = new System.Drawing.Point(120, 17);
+            this.process_name.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.process_name.Name = "process_name";
-            this.process_name.Size = new System.Drawing.Size(183, 25);
+            this.process_name.Size = new System.Drawing.Size(205, 26);
             this.process_name.TabIndex = 3;
             this.process_name.Text = "REDAgent";
             this.process_name.TextChanged += new System.EventHandler(this.process_name_TextChanged);
@@ -164,10 +172,11 @@ namespace FuckRedSpider {
             // auto_hide
             // 
             this.auto_hide.AutoSize = true;
-            this.auto_hide.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.auto_hide.Location = new System.Drawing.Point(78, 103);
+            this.auto_hide.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.auto_hide.Location = new System.Drawing.Point(88, 124);
+            this.auto_hide.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.auto_hide.Name = "auto_hide";
-            this.auto_hide.Size = new System.Drawing.Size(141, 19);
+            this.auto_hide.Size = new System.Drawing.Size(114, 22);
             this.auto_hide.TabIndex = 2;
             this.auto_hide.Text = "自动隐藏红蜘蛛";
             this.auto_hide.UseVisualStyleBackColor = true;
@@ -176,10 +185,11 @@ namespace FuckRedSpider {
             // auto_kill
             // 
             this.auto_kill.AutoSize = true;
-            this.auto_kill.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.auto_kill.Location = new System.Drawing.Point(78, 64);
+            this.auto_kill.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.auto_kill.Location = new System.Drawing.Point(88, 77);
+            this.auto_kill.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.auto_kill.Name = "auto_kill";
-            this.auto_kill.Size = new System.Drawing.Size(141, 19);
+            this.auto_kill.Size = new System.Drawing.Size(114, 22);
             this.auto_kill.TabIndex = 1;
             this.auto_kill.Text = "自动关闭红蜘蛛";
             this.auto_kill.UseVisualStyleBackColor = true;
@@ -190,10 +200,11 @@ namespace FuckRedSpider {
             this.topest_with_timer.AutoSize = true;
             this.topest_with_timer.Checked = true;
             this.topest_with_timer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.topest_with_timer.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.topest_with_timer.Location = new System.Drawing.Point(78, 26);
+            this.topest_with_timer.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.topest_with_timer.Location = new System.Drawing.Point(88, 31);
+            this.topest_with_timer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.topest_with_timer.Name = "topest_with_timer";
-            this.topest_with_timer.Size = new System.Drawing.Size(125, 19);
+            this.topest_with_timer.Size = new System.Drawing.Size(102, 22);
             this.topest_with_timer.TabIndex = 0;
             this.topest_with_timer.Text = "应用强制置顶";
             this.topest_with_timer.UseVisualStyleBackColor = true;
@@ -202,9 +213,10 @@ namespace FuckRedSpider {
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(763, 538);
+            this.button1.Location = new System.Drawing.Point(858, 646);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(84, 28);
             this.button1.TabIndex = 2;
             this.button1.Text = "关于";
             this.button1.UseVisualStyleBackColor = true;
@@ -216,11 +228,12 @@ namespace FuckRedSpider {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.config_TabControl.Controls.Add(this.tabPage1);
             this.config_TabControl.Controls.Add(this.tabPage2);
-            this.config_TabControl.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.config_TabControl.Location = new System.Drawing.Point(499, 3);
+            this.config_TabControl.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.config_TabControl.Location = new System.Drawing.Point(561, 4);
+            this.config_TabControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.config_TabControl.Name = "config_TabControl";
             this.config_TabControl.SelectedIndex = 0;
-            this.config_TabControl.Size = new System.Drawing.Size(306, 485);
+            this.config_TabControl.Size = new System.Drawing.Size(344, 580);
             this.config_TabControl.TabIndex = 6;
             // 
             // tabPage1
@@ -229,10 +242,11 @@ namespace FuckRedSpider {
             this.tabPage1.Controls.Add(this.auto_kill);
             this.tabPage1.Controls.Add(this.attached_target);
             this.tabPage1.Controls.Add(this.auto_hide);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(298, 456);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage1.Size = new System.Drawing.Size(336, 549);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "主选项";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -240,12 +254,13 @@ namespace FuckRedSpider {
             // attached_target
             // 
             this.attached_target.AutoSize = true;
-            this.attached_target.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.attached_target.Location = new System.Drawing.Point(78, 138);
+            this.attached_target.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.attached_target.Location = new System.Drawing.Point(88, 166);
+            this.attached_target.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.attached_target.Name = "attached_target";
-            this.attached_target.Size = new System.Drawing.Size(141, 19);
+            this.attached_target.Size = new System.Drawing.Size(78, 22);
             this.attached_target.TabIndex = 2;
-            this.attached_target.Text = "附加窗口到控键";
+            this.attached_target.Text = "劫持窗口";
             this.attached_target.UseVisualStyleBackColor = true;
             this.attached_target.CheckedChanged += new System.EventHandler(this.attached_target_CheckedChanged);
             // 
@@ -258,39 +273,42 @@ namespace FuckRedSpider {
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.name_conflict_err);
             this.tabPage2.Controls.Add(this.process_name);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(298, 456);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage2.Size = new System.Drawing.Size(336, 549);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "自定义";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // normal_window_class
             // 
-            this.normal_window_class.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.normal_window_class.Location = new System.Drawing.Point(107, 103);
+            this.normal_window_class.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.normal_window_class.Location = new System.Drawing.Point(120, 124);
+            this.normal_window_class.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.normal_window_class.Name = "normal_window_class";
-            this.normal_window_class.Size = new System.Drawing.Size(183, 25);
+            this.normal_window_class.Size = new System.Drawing.Size(205, 26);
             this.normal_window_class.TabIndex = 9;
             this.normal_window_class.Text = "RedEagle.Monitor";
             // 
             // full_window_class
             // 
-            this.full_window_class.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.full_window_class.Location = new System.Drawing.Point(107, 62);
+            this.full_window_class.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.full_window_class.Location = new System.Drawing.Point(120, 74);
+            this.full_window_class.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.full_window_class.Name = "full_window_class";
-            this.full_window_class.Size = new System.Drawing.Size(183, 25);
+            this.full_window_class.Size = new System.Drawing.Size(205, 26);
             this.full_window_class.TabIndex = 8;
             this.full_window_class.Text = "DIBFullViewClass";
             // 
             // n_w_c_l
             // 
             this.n_w_c_l.AutoSize = true;
-            this.n_w_c_l.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.n_w_c_l.Location = new System.Drawing.Point(3, 108);
+            this.n_w_c_l.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.n_w_c_l.Location = new System.Drawing.Point(3, 130);
             this.n_w_c_l.Name = "n_w_c_l";
-            this.n_w_c_l.Size = new System.Drawing.Size(103, 15);
+            this.n_w_c_l.Size = new System.Drawing.Size(98, 18);
             this.n_w_c_l.TabIndex = 7;
             this.n_w_c_l.Text = "普通窗口类名";
             this.n_w_c_l.DoubleClick += new System.EventHandler(this.n_w_c_l_DoubleClick);
@@ -298,10 +316,10 @@ namespace FuckRedSpider {
             // f_w_c_l
             // 
             this.f_w_c_l.AutoSize = true;
-            this.f_w_c_l.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.f_w_c_l.Location = new System.Drawing.Point(3, 67);
+            this.f_w_c_l.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.f_w_c_l.Location = new System.Drawing.Point(3, 80);
             this.f_w_c_l.Name = "f_w_c_l";
-            this.f_w_c_l.Size = new System.Drawing.Size(103, 15);
+            this.f_w_c_l.Size = new System.Drawing.Size(98, 18);
             this.f_w_c_l.TabIndex = 6;
             this.f_w_c_l.Text = "全屏窗口类名";
             this.f_w_c_l.DoubleClick += new System.EventHandler(this.f_w_c_l_DoubleClick);
@@ -311,9 +329,10 @@ namespace FuckRedSpider {
             this.target_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.target_panel.Location = new System.Drawing.Point(3, 3);
+            this.target_panel.Location = new System.Drawing.Point(3, 4);
+            this.target_panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.target_panel.Name = "target_panel";
-            this.target_panel.Size = new System.Drawing.Size(802, 485);
+            this.target_panel.Size = new System.Drawing.Size(902, 582);
             this.target_panel.TabIndex = 0;
             // 
             // main_tabcontrol
@@ -323,10 +342,11 @@ namespace FuckRedSpider {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.main_tabcontrol.Controls.Add(this.tabPage7);
             this.main_tabcontrol.Controls.Add(this.attach_page);
-            this.main_tabcontrol.Location = new System.Drawing.Point(12, 12);
+            this.main_tabcontrol.Location = new System.Drawing.Point(14, 14);
+            this.main_tabcontrol.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.main_tabcontrol.Name = "main_tabcontrol";
             this.main_tabcontrol.SelectedIndex = 0;
-            this.main_tabcontrol.Size = new System.Drawing.Size(816, 520);
+            this.main_tabcontrol.Size = new System.Drawing.Size(918, 624);
             this.main_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.main_tabcontrol.TabIndex = 8;
             this.main_tabcontrol.SelectedIndexChanged += new System.EventHandler(this.main_tabcontrol_SelectedIndexChanged);
@@ -337,10 +357,11 @@ namespace FuckRedSpider {
             this.tabPage7.Controls.Add(this.group_log);
             this.tabPage7.Controls.Add(this.config_TabControl);
             this.tabPage7.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Location = new System.Drawing.Point(4, 27);
+            this.tabPage7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(808, 491);
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage7.Size = new System.Drawing.Size(910, 593);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "主界面";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -352,11 +373,13 @@ namespace FuckRedSpider {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.group_log.AutoSize = true;
             this.group_log.Controls.Add(this.textbox_log);
-            this.group_log.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.group_log.Location = new System.Drawing.Point(3, 139);
-            this.group_log.MinimumSize = new System.Drawing.Size(255, 0);
+            this.group_log.Font = new System.Drawing.Font("HarmonyOS Sans SC", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.group_log.Location = new System.Drawing.Point(3, 167);
+            this.group_log.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.group_log.MinimumSize = new System.Drawing.Size(287, 0);
             this.group_log.Name = "group_log";
-            this.group_log.Size = new System.Drawing.Size(494, 349);
+            this.group_log.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.group_log.Size = new System.Drawing.Size(556, 417);
             this.group_log.TabIndex = 3;
             this.group_log.TabStop = false;
             this.group_log.Text = "日志";
@@ -364,42 +387,45 @@ namespace FuckRedSpider {
             // textbox_log
             // 
             this.textbox_log.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textbox_log.Location = new System.Drawing.Point(3, 20);
-            this.textbox_log.MinimumSize = new System.Drawing.Size(255, 50);
+            this.textbox_log.Location = new System.Drawing.Point(3, 24);
+            this.textbox_log.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textbox_log.MinimumSize = new System.Drawing.Size(286, 59);
             this.textbox_log.Multiline = true;
             this.textbox_log.Name = "textbox_log";
             this.textbox_log.ReadOnly = true;
             this.textbox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textbox_log.Size = new System.Drawing.Size(488, 326);
+            this.textbox_log.Size = new System.Drawing.Size(550, 389);
             this.textbox_log.TabIndex = 0;
             // 
             // attach_page
             // 
             this.attach_page.Controls.Add(this.target_panel);
             this.attach_page.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.attach_page.Location = new System.Drawing.Point(4, 25);
+            this.attach_page.Location = new System.Drawing.Point(4, 27);
+            this.attach_page.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.attach_page.Name = "attach_page";
-            this.attach_page.Padding = new System.Windows.Forms.Padding(3);
-            this.attach_page.Size = new System.Drawing.Size(808, 491);
+            this.attach_page.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.attach_page.Size = new System.Drawing.Size(910, 593);
             this.attach_page.TabIndex = 1;
             this.attach_page.Text = "附加窗口";
             this.attach_page.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 569);
+            this.ClientSize = new System.Drawing.Size(946, 683);
             this.Controls.Add(this.main_tabcontrol);
             this.Controls.Add(this.button1);
-            this.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Font = new System.Drawing.Font("阿里妈妈数黑体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(355, 325);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(397, 381);
             this.Name = "Form1";
             this.Opacity = 0.95D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "红蜘蛛终结者";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.group_running_stat.ResumeLayout(false);
