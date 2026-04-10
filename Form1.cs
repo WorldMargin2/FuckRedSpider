@@ -20,28 +20,6 @@ namespace FuckRedSpider {
             RemoveWindowTitle(child);             // 去除窗体标题
         }
 
-        /// <summary>
-        /// 添加第三方字体
-        /// </summary>
-        void AddPrivateFont() {
-            var pfc = new PrivateFontCollection();
-            var ALISHUHEI = Properties.Resources.ALIMAMASHUHEITI_BOLD;
-            var HARMONYSANS = Properties.Resources.HARMONYOS_SANS_SC_REGULAR;
-            var KUHEI = Properties.Resources.SMILEY_SANS_OBLIQUE_斜体;
-            unsafe  // 属性设置，生成中 允许不安全代码
-            {
-                // 将字体添加到PrivateFontCollection
-                fixed (byte* pFontData = ALISHUHEI) {
-                    pfc.AddMemoryFont((System.IntPtr)pFontData, ALISHUHEI.Length);
-                }
-                fixed (byte* pFontData = HARMONYSANS) {
-                    pfc.AddMemoryFont((System.IntPtr)pFontData, HARMONYSANS.Length);
-                }
-                fixed (byte* pFontData = KUHEI) {
-                    pfc.AddMemoryFont((System.IntPtr)pFontData, KUHEI.Length);
-                }
-            }
-        }
 
 
         /// <summary>
@@ -119,7 +97,6 @@ namespace FuckRedSpider {
         #endregion
         //===========================================================
         public Form1(string[] args) {
-            AddPrivateFont();
             InitializeComponent();
 
             listener_timer.Start();

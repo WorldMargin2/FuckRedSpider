@@ -61,16 +61,6 @@ namespace FuckRedSpider.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] ALIMAMASHUHEITI_BOLD {
-            get {
-                object obj = ResourceManager.GetObject("ALIMAMASHUHEITI-BOLD", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap bilibili_text {
@@ -87,26 +77,6 @@ namespace FuckRedSpider.Properties {
             get {
                 object obj = ResourceManager.GetObject("github", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] HARMONYOS_SANS_SC_REGULAR {
-            get {
-                object obj = ResourceManager.GetObject("HARMONYOS_SANS_SC_REGULAR", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] SMILEY_SANS_OBLIQUE_斜体 {
-            get {
-                object obj = ResourceManager.GetObject("SMILEY_SANS_OBLIQUE_斜体", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
