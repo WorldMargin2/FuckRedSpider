@@ -31,6 +31,7 @@
 
 想控制我？先过我软件这关！
 
+开源Qt版本[FuckRedSpiderQt](https://github.com/WorldMargin2/FuckRedSpiderQt)
 ---
 
 # 如何操作？ 🚀
