@@ -48,6 +48,15 @@ namespace FuckRedSpider {
             this.full_window_class = new System.Windows.Forms.TextBox();
             this.n_w_c_l = new System.Windows.Forms.Label();
             this.f_w_c_l = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.capture_drag_area = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.insert_captured = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.captured_window = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.open_captured_directory = new System.Windows.Forms.PictureBox();
+            this.captured_executable = new System.Windows.Forms.TextBox();
             this.target_panel = new System.Windows.Forms.Panel();
             this.main_tabcontrol = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -58,6 +67,12 @@ namespace FuckRedSpider {
             this.config_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.capture_drag_area)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.open_captured_directory)).BeginInit();
             this.main_tabcontrol.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.group_log.SuspendLayout();
@@ -171,9 +186,9 @@ namespace FuckRedSpider {
             this.auto_hide.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.auto_hide.Location = new System.Drawing.Point(88, 103);
             this.auto_hide.Name = "auto_hide";
-            this.auto_hide.Size = new System.Drawing.Size(114, 22);
+            this.auto_hide.Size = new System.Drawing.Size(102, 22);
             this.auto_hide.TabIndex = 2;
-            this.auto_hide.Text = "自动隐藏红蜘蛛";
+            this.auto_hide.Text = "自动隐藏目标";
             this.auto_hide.UseVisualStyleBackColor = true;
             this.auto_hide.CheckedChanged += new System.EventHandler(this.auto_hide_CheckedChanged);
             // 
@@ -183,9 +198,9 @@ namespace FuckRedSpider {
             this.auto_kill.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.auto_kill.Location = new System.Drawing.Point(88, 64);
             this.auto_kill.Name = "auto_kill";
-            this.auto_kill.Size = new System.Drawing.Size(114, 22);
+            this.auto_kill.Size = new System.Drawing.Size(102, 22);
             this.auto_kill.TabIndex = 1;
-            this.auto_kill.Text = "自动关闭红蜘蛛";
+            this.auto_kill.Text = "自动关闭目标";
             this.auto_kill.UseVisualStyleBackColor = true;
             this.auto_kill.CheckedChanged += new System.EventHandler(this.auto_kill_CheckedChanged);
             // 
@@ -220,6 +235,7 @@ namespace FuckRedSpider {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.config_TabControl.Controls.Add(this.tabPage1);
             this.config_TabControl.Controls.Add(this.tabPage2);
+            this.config_TabControl.Controls.Add(this.tabPage3);
             this.config_TabControl.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.config_TabControl.Location = new System.Drawing.Point(561, 3);
             this.config_TabControl.Name = "config_TabControl";
@@ -235,7 +251,7 @@ namespace FuckRedSpider {
             this.tabPage1.Controls.Add(this.auto_hide);
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(336, 454);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "主选项";
@@ -264,8 +280,8 @@ namespace FuckRedSpider {
             this.tabPage2.Controls.Add(this.process_name);
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(336, 452);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(336, 454);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "自定义";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -310,6 +326,106 @@ namespace FuckRedSpider {
             this.f_w_c_l.Text = "全屏窗口类名";
             this.f_w_c_l.DoubleClick += new System.EventHandler(this.f_w_c_l_DoubleClick);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.capture_drag_area);
+            this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(336, 454);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "增强功能：窗口捕获";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // capture_drag_area
+            // 
+            this.capture_drag_area.Image = global::FuckRedSpider.Properties.Resources.鼠标;
+            this.capture_drag_area.Location = new System.Drawing.Point(145, 77);
+            this.capture_drag_area.Name = "capture_drag_area";
+            this.capture_drag_area.Size = new System.Drawing.Size(30, 26);
+            this.capture_drag_area.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.capture_drag_area.TabIndex = 2;
+            this.capture_drag_area.TabStop = false;
+            this.capture_drag_area.MouseDown += new System.Windows.Forms.MouseEventHandler(this.capture_drag_area_MouseDown);
+            this.capture_drag_area.MouseMove += new System.Windows.Forms.MouseEventHandler(this.capture_drag_area_MouseMove);
+            this.capture_drag_area.MouseUp += new System.Windows.Forms.MouseEventHandler(this.capture_drag_area_MouseUp);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.insert_captured);
+            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Location = new System.Drawing.Point(3, 109);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(330, 194);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "捕获结果";
+            // 
+            // insert_captured
+            // 
+            this.insert_captured.Location = new System.Drawing.Point(130, 165);
+            this.insert_captured.Name = "insert_captured";
+            this.insert_captured.Size = new System.Drawing.Size(75, 23);
+            this.insert_captured.TabIndex = 3;
+            this.insert_captured.Text = "应用结果";
+            this.insert_captured.UseVisualStyleBackColor = true;
+            this.insert_captured.Click += new System.EventHandler(this.insert_captured_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.captured_window);
+            this.groupBox3.Location = new System.Drawing.Point(6, 88);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(318, 71);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "捕获窗口类名";
+            // 
+            // captured_window
+            // 
+            this.captured_window.Location = new System.Drawing.Point(7, 25);
+            this.captured_window.Name = "captured_window";
+            this.captured_window.ReadOnly = true;
+            this.captured_window.Size = new System.Drawing.Size(305, 25);
+            this.captured_window.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.open_captured_directory);
+            this.groupBox2.Controls.Add(this.captured_executable);
+            this.groupBox2.Location = new System.Drawing.Point(6, 23);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(318, 71);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "可执行文件路径";
+            // 
+            // open_captured_directory
+            // 
+            this.open_captured_directory.Image = global::FuckRedSpider.Properties.Resources.文件夹;
+            this.open_captured_directory.Location = new System.Drawing.Point(282, 24);
+            this.open_captured_directory.Name = "open_captured_directory";
+            this.open_captured_directory.Size = new System.Drawing.Size(30, 26);
+            this.open_captured_directory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.open_captured_directory.TabIndex = 1;
+            this.open_captured_directory.TabStop = false;
+            this.open_captured_directory.DoubleClick += new System.EventHandler(this.open_captured_directory_DoubleClick);
+            // 
+            // captured_executable
+            // 
+            this.captured_executable.Location = new System.Drawing.Point(7, 25);
+            this.captured_executable.Name = "captured_executable";
+            this.captured_executable.ReadOnly = true;
+            this.captured_executable.Size = new System.Drawing.Size(269, 25);
+            this.captured_executable.TabIndex = 0;
+            // 
             // target_panel
             // 
             this.target_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -343,7 +459,7 @@ namespace FuckRedSpider {
             this.tabPage7.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage7.Size = new System.Drawing.Size(910, 491);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "主界面";
@@ -381,10 +497,10 @@ namespace FuckRedSpider {
             // 
             this.attach_page.Controls.Add(this.target_panel);
             this.attach_page.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.attach_page.Location = new System.Drawing.Point(4, 27);
+            this.attach_page.Location = new System.Drawing.Point(4, 25);
             this.attach_page.Name = "attach_page";
-            this.attach_page.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.attach_page.Size = new System.Drawing.Size(910, 489);
+            this.attach_page.Padding = new System.Windows.Forms.Padding(3);
+            this.attach_page.Size = new System.Drawing.Size(910, 491);
             this.attach_page.TabIndex = 1;
             this.attach_page.Text = "附加窗口";
             this.attach_page.UseVisualStyleBackColor = true;
@@ -398,7 +514,7 @@ namespace FuckRedSpider {
             this.Controls.Add(this.button1);
             this.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(397, 325);
             this.Name = "Form1";
             this.Opacity = 0.95D;
@@ -414,6 +530,14 @@ namespace FuckRedSpider {
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.capture_drag_area)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.open_captured_directory)).EndInit();
             this.main_tabcontrol.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
@@ -454,6 +578,15 @@ namespace FuckRedSpider {
         private System.Windows.Forms.TabPage attach_page;
         private System.Windows.Forms.GroupBox group_log;
         private System.Windows.Forms.TextBox textbox_log;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox captured_executable;
+        private System.Windows.Forms.PictureBox open_captured_directory;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox captured_window;
+        private System.Windows.Forms.PictureBox capture_drag_area;
+        private System.Windows.Forms.Button insert_captured;
     }
 }
 

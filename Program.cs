@@ -20,7 +20,6 @@ namespace FuckRedSpider {
             } else {
                 Application.Run(new Form1(args));
             }
-
         }
 
         static void RunAsAdmin(string[] args) {

@@ -76,6 +76,29 @@
 
 # 更新日志 📝
 
+## v1.0.0.8（2026-05-03）
+
+### 新增功能
+- 窗口捕获功能：新增"增强功能：窗口捕获"标签页及UI控件，支持拖拽捕获窗口并将捕获的类名/可执行文件应用到设置中
+- OverlayForm：添加透明覆盖层以视觉高亮显示目标窗口
+
+### 资源更新
+- 新增图像资源：鼠标.png、文件夹.png
+- 更新Resources.resx和Resources.Designer.cs文件
+- 更新项目文件以包含新资源
+
+### API增强
+- 实现更安全的进程映像检索：QueryFullProcessImageName/OpenProcess
+- 新增WindowsApi辅助函数：WindowFromPoint、ChildWindowFromPointEx、GetWindow、GetWindowRect、GetClassName等
+
+### 窗口管理
+- 追踪被劫持窗口的原始父窗口/样式/矩形
+- 新增RestoreHijackedWindow和RestoreAllHijackedWindows方法，支持在停止或窗体关闭时恢复更改
+
+### 代码优化
+- 小幅UI/内边距调整
+- Program.cs代码清理
+
 ## v1.0.0.7（2026-4-11）
 
 - 删除嵌入的字体以缩小体积
