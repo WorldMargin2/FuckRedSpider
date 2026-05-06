@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Process = System.Diagnostics.Process;
 using System.Text;
+using KeysBinding;
 
 namespace FuckRedSpider {
 
@@ -22,7 +23,6 @@ namespace FuckRedSpider {
         }
 
         private readonly Dictionary<IntPtr, HijackInfo> _hijacked = new Dictionary<IntPtr, HijackInfo>();
-
         // 将第三方窗口嵌入到本窗体的容器中；在嵌入前保存原始父句柄与样式，便于恢复
         private void _SetParent(IntPtr child, IntPtr hWndNewParent) {
             try {
@@ -72,6 +72,53 @@ namespace FuckRedSpider {
         private bool keyboardGuardRunning = false;
         IntPtr target_window;
         FormWindowState last_state = FormWindowState.Normal;
+
+        KeyGridBinding keyGridBinding;
+
+        void hotKeyInit() {
+            keyGridBinding = new KeyGridBinding(dataGridView1);
+            keyGridBinding.startListen();
+            this.FormClosed += (s, e) => {
+                keyGridBinding.stopListen();
+            };
+            keyGridBinding.bind("置顶", 
+                () => { 
+                    this.topest_with_timer.Checked = !this.topest_with_timer.Checked;
+                },
+                Keys.Control, Keys.U
+            );
+            keyGridBinding.bind("自动关闭目标窗体",
+                () => { 
+                    this.auto_kill.Checked = !this.auto_kill.Checked;
+                },
+                Keys.Control, Keys.I
+            );
+            keyGridBinding.bind("自动隐藏目标窗体", 
+                () => { 
+                    this.auto_hide.Checked = !this.auto_hide.Checked;
+                },
+                Keys.Control, Keys.O
+            );
+            keyGridBinding.bind("劫持目标窗体",
+                () => { 
+                    this.attached_target.Checked = !this.attached_target.Checked;
+                },
+                Keys.Control, Keys.P
+            );
+            keyGridBinding.bind("捕获当前窗体",
+                () => { 
+                    if (!isCapturing) {
+                        // 模拟点击捕获按钮以保持逻辑一致
+                        capture_drag_area_MouseDown(this, null);
+                    } else {
+                        capture_drag_area_MouseUp(this, null);
+                        insert_captured_Click(this, null);
+                    }
+                },
+                Keys.Control, Keys.OemOpenBrackets
+            );
+            keyGridBinding.initGridData();
+        }
 
         void KeyboardGuard_GuardStarted(object sender, EventArgs e) {
             log.add("键盘守护启动");
@@ -132,6 +179,7 @@ namespace FuckRedSpider {
             _keyboardGuard.GuardStopped += KeyboardGuard_GuardStopped;
             _keyboardGuard.ErrorOccurred += KeyboardGuard_ErrorOccurred;
             config_TabControl.BringToFront();
+            hotKeyInit();
         }
 
         private void bindTip() {
@@ -567,13 +615,12 @@ namespace FuckRedSpider {
                 if (!isRealWindow(top)) {
                     // 在 z-order 上下邻近搜索
                     IntPtr cand = top;
-                    bool found = false;
                     for (int i = 0; i < 200 && cand != IntPtr.Zero; i++) {
                         // try previous (higher) windows first
                         IntPtr prev = GetWindow(cand, GW_HWNDPREV);
-                        if (prev != IntPtr.Zero && isRealWindow(prev)) { top = prev; found = true; break; }
+                        if (prev != IntPtr.Zero && isRealWindow(prev)) { top = prev;break; }
                         IntPtr next = GetWindow(cand, GW_HWNDNEXT);
-                        if (next != IntPtr.Zero && isRealWindow(next)) { top = next; found = true; break; }
+                        if (next != IntPtr.Zero && isRealWindow(next)) { top = next; break; }
                         // 向上或向下继续寻找
                         if (prev != IntPtr.Zero) cand = prev;
                         else cand = next;

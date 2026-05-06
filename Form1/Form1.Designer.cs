@@ -63,6 +63,11 @@ namespace FuckRedSpider {
             this.group_log = new System.Windows.Forms.GroupBox();
             this.textbox_log = new System.Windows.Forms.TextBox();
             this.attach_page = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_running_stat.SuspendLayout();
             this.config_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,6 +82,8 @@ namespace FuckRedSpider {
             this.tabPage7.SuspendLayout();
             this.group_log.SuspendLayout();
             this.attach_page.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // listener_timer
@@ -236,11 +243,13 @@ namespace FuckRedSpider {
             this.config_TabControl.Controls.Add(this.tabPage1);
             this.config_TabControl.Controls.Add(this.tabPage2);
             this.config_TabControl.Controls.Add(this.tabPage3);
+            this.config_TabControl.Controls.Add(this.tabPage4);
             this.config_TabControl.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.config_TabControl.Location = new System.Drawing.Point(561, 3);
             this.config_TabControl.Name = "config_TabControl";
             this.config_TabControl.SelectedIndex = 0;
             this.config_TabControl.Size = new System.Drawing.Size(344, 485);
+            this.config_TabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.config_TabControl.TabIndex = 6;
             // 
             // tabPage1
@@ -505,6 +514,64 @@ namespace FuckRedSpider {
             this.attach_page.Text = "附加窗口";
             this.attach_page.UseVisualStyleBackColor = true;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.dataGridView1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(336, 454);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "按键监听";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 27;
+            this.dataGridView1.Size = new System.Drawing.Size(336, 454);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "名称";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 125;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "主键";
+            this.Column2.Items.AddRange(new object[] {
+            "Shift",
+            "Ctrl",
+            "Alt"});
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 125;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "副键";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 125;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 15F);
@@ -544,6 +611,8 @@ namespace FuckRedSpider {
             this.group_log.ResumeLayout(false);
             this.group_log.PerformLayout();
             this.attach_page.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -587,6 +656,11 @@ namespace FuckRedSpider {
         private System.Windows.Forms.TextBox captured_window;
         private System.Windows.Forms.PictureBox capture_drag_area;
         private System.Windows.Forms.Button insert_captured;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
 
