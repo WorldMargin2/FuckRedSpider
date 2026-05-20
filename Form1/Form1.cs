@@ -75,6 +75,9 @@ namespace FuckRedSpider {
 
         KeyGridBinding keyGridBinding;
 
+        
+
+
         void hotKeyInit() {
             keyGridBinding = new KeyGridBinding(dataGridView1);
             keyGridBinding.startListen();
@@ -182,6 +185,27 @@ namespace FuckRedSpider {
             hotKeyInit();
         }
 
+
+        void startKeyboardGuard() {
+            if (keyboardGuardRunning) return;
+            _keyboardGuard.Start();
+            keyboardGuardRunning= true;
+        }
+
+        void stopKeyboardGuard() {
+            if (!keyboardGuardRunning) return;
+            _keyboardGuard.Stop();
+            keyboardGuardRunning = false;
+        }
+
+        void restartKeyboardGuard() {
+            if (keyboardGuardRunning) {
+                _keyboardGuard.Stop();
+            }
+            _keyboardGuard.Start();
+        }
+
+        #region --提示--
         private void bindTip() {
             //绑定提示
             //状态监听窗口
@@ -190,21 +214,33 @@ namespace FuckRedSpider {
             //日志窗口
             toolTip1.SetToolTip(this.textbox_log, "日志记录");
             //设置窗口
-            //  page1
+            //  主选项
             toolTip1.SetToolTip(this.topest_with_timer, "每次检测时都置顶窗口");
             toolTip1.SetToolTip(this.auto_kill, "检测到进程时自动结束进程");
             toolTip1.SetToolTip(this.auto_hide, "检测到进程时自动隐藏窗口");
-            //  page2
+            toolTip1.SetToolTip(this.attached_target, "检测到进程时尝试劫持窗口");
+            toolTip1.SetToolTip(this.keyboardGuardInTime, "通过不断重启键盘守护来防止键盘被劫持");
+            //  自定义
             toolTip1.SetToolTip(this.process_name, "要监控的进程名，默认REDAgent");
             toolTip1.SetToolTip(this.label2, "双击重置");
             toolTip1.SetToolTip(this.full_window_class, "全屏控屏窗口类名，默认DIBFullViewClass");
             toolTip1.SetToolTip(this.f_w_c_l, "双击重置");
             toolTip1.SetToolTip(this.normal_window_class, "普通控屏窗口类名，默认RedEagle.Monitor");
             toolTip1.SetToolTip(this.n_w_c_l, "双击重置");
+            //  增强功能
+            toolTip1.SetToolTip(this.capture_drag_area, "拖拽捕获窗口");
+            toolTip1.SetToolTip(this.captured_executable, "捕获到的窗口的exe路径");
+            toolTip1.SetToolTip(this.captured_window, "捕获到的窗口的类名");
+            toolTip1.SetToolTip(this.open_captured_directory, "双击打开捕获到的窗口的进程所在目录");
+            toolTip1.SetToolTip(this.insert_captured, "点击将捕获到的窗口应用到自定义页");
+
+
+            //  热键
             //关于按钮
             toolTip1.SetToolTip(this.button1, "关于作者");
 
         }
+        #endregion
 
         private void closeHandle(IntPtr h) {
             SetWindowPos(h, HWND_NOTOPMOST, 0, 0, 0, 0, 0x0001 | 0x0002); //找到窗口并置于底层
@@ -287,6 +323,11 @@ namespace FuckRedSpider {
             if (topest_with_timer.Checked) {
                 this.TopMost = true;//防止被覆盖
             }
+
+            if(keyboardGuardInTime.Checked) {
+                restartKeyboardGuard();
+            }
+
 
             Process[] p = Process.GetProcessesByName(process_name.Text.Trim());
 
@@ -404,8 +445,7 @@ namespace FuckRedSpider {
                     SetWindowPos(target_window, target_panel.Handle, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
                     log.add("嵌入全屏窗口: " + getHex(target_window));
                     log.ignore(2);
-                    _keyboardGuard.Stop();
-                    _keyboardGuard.Start();
+                    restartKeyboardGuard();
                     return;
                 }
                 #endregion
@@ -446,9 +486,9 @@ namespace FuckRedSpider {
             if (attached_target.Checked) {
                 auto_hide.Checked = false;
                 auto_kill.Checked = false;
-                _keyboardGuard.Start();
+                startKeyboardGuard();
             } else {
-                _keyboardGuard.Stop();
+                stopKeyboardGuard();
                 // 恢复所有已被嵌入的窗口
                 RestoreAllHijackedWindows();
                 target_window = IntPtr.Zero;
