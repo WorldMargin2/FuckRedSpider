@@ -124,11 +124,9 @@ namespace FuckRedSpider {
         }
 
         void KeyboardGuard_GuardStarted(object sender, EventArgs e) {
-            log.add("键盘守护启动");
             keyboardGuardRunning = true;
         }
         void KeyboardGuard_GuardStopped(object sender, EventArgs e) {
-            log.add("键盘守护停止");
             keyboardGuardRunning = false;
         }
         void KeyboardGuard_ErrorOccurred(object sender, ErrorEventArgs e) {
@@ -190,12 +188,14 @@ namespace FuckRedSpider {
             if (keyboardGuardRunning) return;
             _keyboardGuard.Start();
             keyboardGuardRunning= true;
+            log.add("键盘守护启动");
         }
 
         void stopKeyboardGuard() {
             if (!keyboardGuardRunning) return;
             _keyboardGuard.Stop();
             keyboardGuardRunning = false;
+            log.add("键盘守护停止");
         }
 
         void restartKeyboardGuard() {
