@@ -56,6 +56,7 @@ namespace FuckRedSpider {
         }
 
         private const UInt32 WM_CLOSE = 0x0010;
+        private const int WM_SIZING = 0x0214;
         private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
 
 
@@ -486,13 +487,54 @@ namespace FuckRedSpider {
             if (attached_target.Checked) {
                 auto_hide.Checked = false;
                 auto_kill.Checked = false;
+                keepRatio.Enabled = true;
                 startKeyboardGuard();
             } else {
                 stopKeyboardGuard();
                 // 恢复所有已被嵌入的窗口
                 RestoreAllHijackedWindows();
+                keepRatio.Enabled = false;
                 target_window = IntPtr.Zero;
             }
+            ratioWidth.Enabled = keepRatio.Checked;
+            ratioHeight.Enabled = keepRatio.Checked;
+        }
+
+        public struct Box {
+            public int width;
+            public int height;
+        }
+
+        private Box KeepRatio(int width, int height) {
+            if (!(keepRatio.Checked && keepRatio.Enabled)) {
+                return new Box() {
+                    width = width,
+                    height = height
+                };
+            }
+            float ratio = (float)ratioWidth.Value / (float)ratioHeight.Value;
+            if (width / height > ratio) {
+                return new Box() {
+                    width = (int)(height * ratio),
+                    height = height
+                };
+            } else {
+                return new Box() {
+                    width = width,
+                    height = (int)(width / ratio)
+                };
+            }
+        }
+
+        private void keepRatio_CheckedChanged(object sender, EventArgs e) {
+            if (keepRatio.Checked) {
+                ratioWidth.Enabled = true;
+                ratioHeight.Enabled = true;
+            } else {
+                ratioWidth.Enabled = false;
+                ratioHeight.Enabled = false;
+            }
+             Form1_ResizeEnd(sender, e);
         }
 
 
@@ -555,7 +597,8 @@ namespace FuckRedSpider {
         private void Form1_ResizeEnd(object sender, EventArgs e) {
             if (attached_target.Checked) {
                 if (target_window != IntPtr.Zero) {
-                    SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                    var box = KeepRatio(target_panel.Width, target_panel.Height);
+                    SetWindowPos(target_window, IntPtr.Zero, 0, 0, box.width, box.height, 0x0040);
                 }
             }
         }
@@ -900,5 +943,119 @@ namespace FuckRedSpider {
                 log.add("打开目录失败: " + ex.Message);
             }
         }
+
+
+
+        private void immersive_mode_CheckedChanged(object sender, EventArgs e) {
+            if (immersive_mode.Checked) {
+                target_panel.Visible = true;
+                main_tabcontrol.Visible = false;
+                this.FormBorderStyle = FormBorderStyle.None;
+            } else {
+                target_panel.Visible = false;
+                main_tabcontrol.Visible = true;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                _isResizing = false;  // 中断拖拽
+                _isMoving = false;
+                this.Cursor = Cursors.Default;  // 重置光标
+            }
+        }
+
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == WM_SIZING && immersive_mode.Checked && attached_target.Checked && target_window != IntPtr.Zero) {
+                // 勾选保持比例时，强制主窗口按比例调整，让嵌入窗口始终填满不留空位
+                if (keepRatio.Checked && keepRatio.Enabled) {
+                    float ratio = (float)ratioWidth.Value / (float)ratioHeight.Value;
+                    var r = Marshal.PtrToStructure<RECT>(m.LParam);
+                    int w = r.Right - r.Left;
+                    int h = r.Bottom - r.Top;
+                    switch ((int)m.WParam) {
+                        case 7: case 8:
+                            h = Math.Max(1, (int)(w / ratio));
+                            r.Bottom = r.Top + h; break;
+                        case 4: case 5:
+                            h = Math.Max(1, (int)(w / ratio));
+                            r.Top = r.Bottom - h; break;
+                        case 3: case 6:
+                            w = Math.Max(1, (int)(h * ratio));
+                            r.Left = r.Right - w; break;
+                        default:
+                            w = Math.Max(1, (int)(h * ratio));
+                            r.Right = r.Left + w; break;
+                    }
+                    Marshal.StructureToPtr(r, m.LParam, false);
+                }
+                base.WndProc(ref m);
+                SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
+        #region --沉浸模式拖拽操作--
+
+        // 拖拽状态
+        private bool _isResizing = false;
+        private bool _isMoving = false;
+        private Point _dragStartPos;
+        private Rectangle _dragStartBounds;
+
+        // ---- resize_window: 调整窗口大小（右下角拖拽）----
+
+        private void resize_window_MouseDown(object sender, MouseEventArgs e) {
+            if (!immersive_mode.Checked || e.Button != MouseButtons.Left) return;
+            _isResizing = true;
+            _dragStartPos = Control.MousePosition;  // 屏幕坐标
+            _dragStartBounds = this.Bounds;
+        }
+
+        private void resize_window_MouseMove(object sender, MouseEventArgs e) {
+            if (!_isResizing) return;
+            int dx = Control.MousePosition.X - _dragStartPos.X;
+            int dy = Control.MousePosition.Y - _dragStartPos.Y;
+            int newW = Math.Max(100, _dragStartBounds.Width + dx);
+            int newH = Math.Max(100, _dragStartBounds.Height + dy);
+
+            // 保持比例
+            if (keepRatio.Checked && keepRatio.Enabled) {
+                float ratio = (float)ratioWidth.Value / (float)ratioHeight.Value;
+                float currentRatio = (float)newW / newH;
+                if (currentRatio > ratio)
+                    newW = (int)(newH * ratio);
+                else
+                    newH = (int)(newW / ratio);
+            }
+
+            this.Size = new Size(newW, newH);
+
+            // 同步嵌入窗口
+            if (attached_target.Checked && target_window != IntPtr.Zero)
+                SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
+        }
+
+        private void resize_window_MouseUp(object sender, MouseEventArgs e) {
+            _isResizing = false;
+        }
+
+        // ---- move_window: 移动窗口位置 ----
+
+        private void move_window_MouseDown(object sender, MouseEventArgs e) {
+            if (!immersive_mode.Checked || e.Button != MouseButtons.Left) return;
+            _isMoving = true;
+            _dragStartPos = Control.MousePosition;  // 屏幕坐标
+            _dragStartBounds = this.Bounds;
+        }
+
+        private void move_window_MouseMove(object sender, MouseEventArgs e) {
+            if (!_isMoving) return;
+            int dx = Control.MousePosition.X - _dragStartPos.X;
+            int dy = Control.MousePosition.Y - _dragStartPos.Y;
+            this.Location = new Point(_dragStartBounds.X + dx, _dragStartBounds.Y + dy);
+        }
+
+        private void move_window_MouseUp(object sender, MouseEventArgs e) {
+            _isMoving = false;
+        }
+        #endregion
     }
 }
