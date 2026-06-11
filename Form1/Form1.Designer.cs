@@ -75,6 +75,7 @@ namespace FuckRedSpider {
             this.textbox_log = new System.Windows.Forms.TextBox();
             this.immersive_mode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             label1 = new System.Windows.Forms.Label();
             this.group_running_stat.SuspendLayout();
             this.config_TabControl.SuspendLayout();
@@ -90,13 +91,13 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).BeginInit();
-            this.target_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).BeginInit();
             this.main_tabcontrol.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.group_log.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -572,8 +573,6 @@ namespace FuckRedSpider {
             // 
             // target_panel
             // 
-            this.target_panel.Controls.Add(this.move_window);
-            this.target_panel.Controls.Add(this.resize_window);
             this.target_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.target_panel.Location = new System.Drawing.Point(0, 0);
             this.target_panel.Name = "target_panel";
@@ -600,7 +599,7 @@ namespace FuckRedSpider {
             this.resize_window.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.resize_window.Image = global::FuckRedSpider.Properties.Resources.调整大小;
             this.resize_window.InitialImage = global::FuckRedSpider.Properties.Resources.调整大小;
-            this.resize_window.Location = new System.Drawing.Point(929, 610);
+            this.resize_window.Location = new System.Drawing.Point(930, 607);
             this.resize_window.Name = "resize_window";
             this.resize_window.Size = new System.Drawing.Size(25, 25);
             this.resize_window.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -690,6 +689,17 @@ namespace FuckRedSpider {
             this.panel1.Size = new System.Drawing.Size(390, 29);
             this.panel1.TabIndex = 9;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.resize_window);
+            this.panel2.Controls.Add(this.move_window);
+            this.panel2.Controls.Add(this.target_panel);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(955, 636);
+            this.panel2.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 15F);
@@ -697,7 +707,7 @@ namespace FuckRedSpider {
             this.ClientSize = new System.Drawing.Size(955, 636);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.main_tabcontrol);
-            this.Controls.Add(this.target_panel);
+            this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("幼圆", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -728,7 +738,6 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).EndInit();
-            this.target_panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).EndInit();
             this.main_tabcontrol.ResumeLayout(false);
@@ -738,6 +747,7 @@ namespace FuckRedSpider {
             this.group_log.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -792,6 +802,7 @@ namespace FuckRedSpider {
         private System.Windows.Forms.PictureBox move_window;
         private System.Windows.Forms.PictureBox resize_window;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
