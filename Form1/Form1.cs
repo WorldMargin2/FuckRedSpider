@@ -121,6 +121,13 @@ namespace FuckRedSpider {
                 },
                 Keys.Control, Keys.OemOpenBrackets
             );
+            keyGridBinding.bind("沉浸窗口开关",
+                () => {
+                    this.immersive_mode.Checked = !this.immersive_mode.Checked;
+                    immersive_mode_CheckedChanged(this, null);
+                },
+                Keys.Control, Keys.OemCloseBrackets
+            );
             keyGridBinding.initGridData();
         }
 
@@ -1027,14 +1034,13 @@ namespace FuckRedSpider {
             }
 
             this.Size = new Size(newW, newH);
-
-            // 同步嵌入窗口
-            if (attached_target.Checked && target_window != IntPtr.Zero)
-                SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
         }
 
         private void resize_window_MouseUp(object sender, MouseEventArgs e) {
             _isResizing = false;
+            // 同步嵌入窗口
+            if (attached_target.Checked && target_window != IntPtr.Zero)
+                SetWindowPos(target_window, IntPtr.Zero, 0, 0, target_panel.Width, target_panel.Height, 0x0040);
         }
 
         // ---- move_window: 移动窗口位置 ----
