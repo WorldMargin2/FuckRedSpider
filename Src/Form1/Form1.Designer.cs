@@ -43,6 +43,7 @@ namespace FuckRedSpider {
             this.config_TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.keyboardGuardInTime = new System.Windows.Forms.CheckBox();
+            this.screenHookCheckBox = new System.Windows.Forms.CheckBox();
             this.attached_target = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.normal_window_class = new System.Windows.Forms.TextBox();
@@ -76,6 +77,7 @@ namespace FuckRedSpider {
             this.immersive_mode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.screenHookStatusLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             this.group_running_stat.SuspendLayout();
             this.config_TabControl.SuspendLayout();
@@ -267,9 +269,11 @@ namespace FuckRedSpider {
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.screenHookStatusLabel);
             this.tabPage1.Controls.Add(this.topest_with_timer);
             this.tabPage1.Controls.Add(this.auto_kill);
             this.tabPage1.Controls.Add(this.keyboardGuardInTime);
+            this.tabPage1.Controls.Add(this.screenHookCheckBox);
             this.tabPage1.Controls.Add(this.attached_target);
             this.tabPage1.Controls.Add(this.auto_hide);
             this.tabPage1.Font = new System.Drawing.Font("得意黑", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -292,6 +296,18 @@ namespace FuckRedSpider {
             this.keyboardGuardInTime.Text = "实时键盘守护";
             this.keyboardGuardInTime.UseVisualStyleBackColor = true;
             this.keyboardGuardInTime.CheckedChanged += new System.EventHandler(this.attached_target_CheckedChanged);
+            // 
+            // screenHookCheckBox
+            // 
+            this.screenHookCheckBox.AutoSize = true;
+            this.screenHookCheckBox.Font = new System.Drawing.Font("得意黑", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.screenHookCheckBox.Location = new System.Drawing.Point(6, 161);
+            this.screenHookCheckBox.Name = "screenHookCheckBox";
+            this.screenHookCheckBox.Size = new System.Drawing.Size(78, 22);
+            this.screenHookCheckBox.TabIndex = 2;
+            this.screenHookCheckBox.Text = "屏幕守护";
+            this.screenHookCheckBox.UseVisualStyleBackColor = true;
+            this.screenHookCheckBox.CheckedChanged += new System.EventHandler(this.ScreenHookCheckBox_CheckedChanged);
             // 
             // attached_target
             // 
@@ -700,6 +716,16 @@ namespace FuckRedSpider {
             this.panel2.Size = new System.Drawing.Size(955, 636);
             this.panel2.TabIndex = 10;
             // 
+            // screenHookStatusLabel
+            // 
+            this.screenHookStatusLabel.AutoSize = true;
+            this.screenHookStatusLabel.ForeColor = System.Drawing.Color.Gray;
+            this.screenHookStatusLabel.Location = new System.Drawing.Point(90, 164);
+            this.screenHookStatusLabel.Name = "screenHookStatusLabel";
+            this.screenHookStatusLabel.Size = new System.Drawing.Size(37, 16);
+            this.screenHookStatusLabel.TabIndex = 3;
+            this.screenHookStatusLabel.Text = "未注入";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 15F);
@@ -803,6 +829,8 @@ namespace FuckRedSpider {
         private System.Windows.Forms.PictureBox resize_window;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox screenHookCheckBox;
+        private System.Windows.Forms.Label screenHookStatusLabel;
     }
 }
 
