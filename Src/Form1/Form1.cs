@@ -52,11 +52,22 @@ namespace FuckRedSpider {
             // ==================== 初始化屏幕 Hook ====================
             _screenHookManager = new ScreenHookManager((msg) => log.add(msg));
             _screenHookManager.OnHookAutoUnload += (s, e) => {
-                screenHookCheckBox.Checked = false;
-                screenHookEnabled = false;
-                screenHookStatusLabel.Text = "目标进程已退出";
-                screenHookStatusLabel.ForeColor = Color.Gray;
-                log.add("屏幕 Hook 已自动卸载");
+                // 确保在 UI 线程执行，避免跨线程访问 UI 控件导致崩溃
+                if (this.InvokeRequired) {
+                    this.BeginInvoke(new Action(() => {
+                        screenHookCheckBox.Checked = false;
+                        screenHookEnabled = false;
+                        screenHookStatusLabel.Text = "目标进程已退出";
+                        screenHookStatusLabel.ForeColor = Color.Gray;
+                        log.add("屏幕 Hook 已自动卸载");
+                    }));
+                } else {
+                    screenHookCheckBox.Checked = false;
+                    screenHookEnabled = false;
+                    screenHookStatusLabel.Text = "目标进程已退出";
+                    screenHookStatusLabel.ForeColor = Color.Gray;
+                    log.add("屏幕 Hook 已自动卸载");
+                }
             };
         }
 
@@ -319,6 +330,12 @@ namespace FuckRedSpider {
         }
 
         private Box KeepRatio(int width, int height) {
+            if (this.WindowState == FormWindowState.Minimized) {
+                return new Box() {
+                    width = 0,
+                    height = 0
+                };
+            }
             if (!(keepRatio.Checked && keepRatio.Enabled)) {
                 return new Box() {
                     width = width,
