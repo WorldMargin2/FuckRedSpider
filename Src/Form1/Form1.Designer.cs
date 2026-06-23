@@ -94,7 +94,6 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).BeginInit();
-            this.target_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.to_smallest_btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).BeginInit();
@@ -602,7 +601,6 @@ namespace FuckRedSpider {
             // 
             // target_panel
             // 
-            this.target_panel.Controls.Add(this.to_smallest_btn);
             this.target_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.target_panel.Location = new System.Drawing.Point(0, 0);
             this.target_panel.Name = "target_panel";
@@ -615,7 +613,7 @@ namespace FuckRedSpider {
             this.to_smallest_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.to_smallest_btn.Image = global::FuckRedSpider.Properties.Resources.最小化;
             this.to_smallest_btn.InitialImage = global::FuckRedSpider.Properties.Resources.移动;
-            this.to_smallest_btn.Location = new System.Drawing.Point(932, 0);
+            this.to_smallest_btn.Location = new System.Drawing.Point(930, 0);
             this.to_smallest_btn.Name = "to_smallest_btn";
             this.to_smallest_btn.Size = new System.Drawing.Size(25, 25);
             this.to_smallest_btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -737,6 +735,7 @@ namespace FuckRedSpider {
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.to_smallest_btn);
             this.panel2.Controls.Add(this.resize_window);
             this.panel2.Controls.Add(this.move_window);
             this.panel2.Controls.Add(this.target_panel);
@@ -784,7 +783,6 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).EndInit();
-            this.target_panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.to_smallest_btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).EndInit();
