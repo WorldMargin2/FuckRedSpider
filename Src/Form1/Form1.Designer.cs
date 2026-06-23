@@ -42,6 +42,7 @@ namespace FuckRedSpider {
             this.button1 = new System.Windows.Forms.Button();
             this.config_TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.screenHookStatusLabel = new System.Windows.Forms.Label();
             this.keyboardGuardInTime = new System.Windows.Forms.CheckBox();
             this.screenHookCheckBox = new System.Windows.Forms.CheckBox();
             this.attached_target = new System.Windows.Forms.CheckBox();
@@ -68,6 +69,7 @@ namespace FuckRedSpider {
             this.ratioWidth = new System.Windows.Forms.NumericUpDown();
             this.keepRatio = new System.Windows.Forms.CheckBox();
             this.target_panel = new System.Windows.Forms.Panel();
+            this.to_smallest_btn = new System.Windows.Forms.PictureBox();
             this.move_window = new System.Windows.Forms.PictureBox();
             this.resize_window = new System.Windows.Forms.PictureBox();
             this.main_tabcontrol = new System.Windows.Forms.TabControl();
@@ -77,7 +79,6 @@ namespace FuckRedSpider {
             this.immersive_mode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.screenHookStatusLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             this.group_running_stat.SuspendLayout();
             this.config_TabControl.SuspendLayout();
@@ -93,6 +94,8 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).BeginInit();
+            this.target_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.to_smallest_btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).BeginInit();
             this.main_tabcontrol.SuspendLayout();
@@ -284,6 +287,16 @@ namespace FuckRedSpider {
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "主选项";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // screenHookStatusLabel
+            // 
+            this.screenHookStatusLabel.AutoSize = true;
+            this.screenHookStatusLabel.ForeColor = System.Drawing.Color.Gray;
+            this.screenHookStatusLabel.Location = new System.Drawing.Point(90, 164);
+            this.screenHookStatusLabel.Name = "screenHookStatusLabel";
+            this.screenHookStatusLabel.Size = new System.Drawing.Size(37, 16);
+            this.screenHookStatusLabel.TabIndex = 3;
+            this.screenHookStatusLabel.Text = "未注入";
             // 
             // keyboardGuardInTime
             // 
@@ -589,12 +602,29 @@ namespace FuckRedSpider {
             // 
             // target_panel
             // 
+            this.target_panel.Controls.Add(this.to_smallest_btn);
             this.target_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.target_panel.Location = new System.Drawing.Point(0, 0);
             this.target_panel.Name = "target_panel";
             this.target_panel.Size = new System.Drawing.Size(955, 636);
             this.target_panel.TabIndex = 0;
             this.target_panel.Visible = false;
+            // 
+            // to_smallest_btn
+            // 
+            this.to_smallest_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.to_smallest_btn.Image = global::FuckRedSpider.Properties.Resources.最小化;
+            this.to_smallest_btn.InitialImage = global::FuckRedSpider.Properties.Resources.移动;
+            this.to_smallest_btn.Location = new System.Drawing.Point(932, 0);
+            this.to_smallest_btn.Name = "to_smallest_btn";
+            this.to_smallest_btn.Size = new System.Drawing.Size(25, 25);
+            this.to_smallest_btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.to_smallest_btn.TabIndex = 0;
+            this.to_smallest_btn.TabStop = false;
+            this.to_smallest_btn.Click += new System.EventHandler(this.to_smallest_btn_Click);
+            this.to_smallest_btn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.move_window_MouseDown);
+            this.to_smallest_btn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.move_window_MouseMove);
+            this.to_smallest_btn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.move_window_MouseUp);
             // 
             // move_window
             // 
@@ -663,7 +693,7 @@ namespace FuckRedSpider {
             this.group_log.Location = new System.Drawing.Point(3, 139);
             this.group_log.MinimumSize = new System.Drawing.Size(287, 0);
             this.group_log.Name = "group_log";
-            this.group_log.Size = new System.Drawing.Size(596, 489);
+            this.group_log.Size = new System.Drawing.Size(596, 581);
             this.group_log.TabIndex = 3;
             this.group_log.TabStop = false;
             this.group_log.Text = "日志";
@@ -716,16 +746,6 @@ namespace FuckRedSpider {
             this.panel2.Size = new System.Drawing.Size(955, 636);
             this.panel2.TabIndex = 10;
             // 
-            // screenHookStatusLabel
-            // 
-            this.screenHookStatusLabel.AutoSize = true;
-            this.screenHookStatusLabel.ForeColor = System.Drawing.Color.Gray;
-            this.screenHookStatusLabel.Location = new System.Drawing.Point(90, 164);
-            this.screenHookStatusLabel.Name = "screenHookStatusLabel";
-            this.screenHookStatusLabel.Size = new System.Drawing.Size(37, 16);
-            this.screenHookStatusLabel.TabIndex = 3;
-            this.screenHookStatusLabel.Text = "未注入";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 15F);
@@ -764,6 +784,8 @@ namespace FuckRedSpider {
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratioWidth)).EndInit();
+            this.target_panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.to_smallest_btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.move_window)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resize_window)).EndInit();
             this.main_tabcontrol.ResumeLayout(false);
@@ -831,6 +853,7 @@ namespace FuckRedSpider {
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox screenHookCheckBox;
         private System.Windows.Forms.Label screenHookStatusLabel;
+        private System.Windows.Forms.PictureBox to_smallest_btn;
     }
 }
 

@@ -120,7 +120,6 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
-
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -130,12 +129,24 @@
     <Compile Include="Src\Form1\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Form1\Form1.Log.cs" />
-    <Compile Include="Src\Form1\Form1.WindowHijack.cs" />
-    <Compile Include="Src\Form1\Form1.ScreenHook.cs" />
-    <Compile Include="Src\Form1\Form1.KeyboardGuard.cs" />
-    <Compile Include="Src\Form1\Form1.Capture.cs" />
-    <Compile Include="Src\Form1\Form1.ImmersiveMode.cs" />
+    <Compile Include="Src\Form1\Form1.Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Form1\Form1.WindowHijack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Form1\Form1.ScreenHook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Form1\Form1.KeyboardGuard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Form1\Form1.Capture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Form1\Form1.ImmersiveMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Src\Form2\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +249,7 @@
     <Content Include="Resources\WorldMargin.ico" />
     <EmbeddedResource Include="Resources\移动.png" />
     <EmbeddedResource Include="Resources\调整大小.png" />
+    <None Include="Resources\最小化.png" />
     <Content Include="Resources\鼠标.png" />
     <EmbeddedResource Include="Resources\文件夹.png" />
     <EmbeddedResource Include="Resources\ScreenHook.dll" />
@@ -248,8 +260,6 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Target Name="CopyScreenHookDll" BeforeTargets="BeforeBuild">
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Src\References\ScreenHook\out\ScreenHook.dll" 
-          DestinationFiles="$(MSBuildProjectDirectory)\Resources\ScreenHook.dll" 
-          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Src\References\ScreenHook\out\ScreenHook.dll" DestinationFiles="$(MSBuildProjectDirectory)\Resources\ScreenHook.dll" SkipUnchangedFiles="true" />
   </Target>
 </Project>

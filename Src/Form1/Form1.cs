@@ -425,5 +425,10 @@ namespace FuckRedSpider {
                 File.Move(origin_exeutable_path + ".bak", origin_exeutable_path);
             }
         }
+
+
+        private void to_smallest_btn_Click(object sender, EventArgs e) {
+            this.WindowState = FormWindowState.Minimized;
+        }
     }
 }
